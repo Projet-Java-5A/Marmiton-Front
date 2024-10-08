@@ -53,7 +53,7 @@ Une fois ta licence récupérée, lance l'IDE et relie ton compte
 </p>
 
 ### 4. Clonage du projet
-Pour récupérer le repository GitLab du TP, lance `git clone https://gitlab.com/llenet/java-angular.git` dans le dossier de ton choix
+Pour récupérer le repository GitLab du TP, lance `git clone https://gitlab.takima.io/formation-dev-web/skeleton-web-app-school.git` dans le dossier de ton choix
 
 Tu y trouveras toutes les ressources nécessaires à la suite du TP.
 
