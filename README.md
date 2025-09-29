@@ -48,8 +48,8 @@ Pour récupérer une licence gratuite utilise ce lien : https://jetbrains.com/sh
 ### 3. Lancer IntelliJ
 Une fois ta licence récupérée, lance l'IDE et relie ton compte
 <p align="center">
-<img src="img-readme/main-readme/img3.png" width="600"/>
 <img src="img-readme/main-readme/img4.png" width="600"/>
+<img src="img-readme/main-readme/img3.png" width="600"/>
 </p>
 
 ### 4. Clonage du projet
@@ -57,7 +57,7 @@ Pour récupérer le repository GitLab du TP, lance `git clone https://gitlab.tak
 
 Tu y trouveras toutes les ressources nécessaires à la suite du TP.
 
-Dans IntelliJ, effectue ensuite les actions suivantes :
+Dans IntelliJ, ouvre le fichier `webapp-hello-world`. Pour ce faire, effectue les actions suivantes :
 <p align="center">
 <img src="img-readme/main-readme/img5.png" width="400"/>
 <img src="img-readme/main-readme/img6.png" width="400"/>
@@ -66,13 +66,14 @@ Dans IntelliJ, effectue ensuite les actions suivantes :
 ### 5. Téléchargement de Java 17
 Depuis IntelliJ, tu peux directement télécharger Java 17 : <br>
 <p align="center">
-<img src="img-readme/main-readme/img7.png"/>
-<img src="img-readme/main-readme/img8.png" width="600"/>
+<img src="img-readme/main-readme/img7.png" width="300"/>
+<img src="img-readme/main-readme/img8.png" width="300"/>
 <img src="img-readme/main-readme/img9.png" width="600"/>
 <img src="img-readme/main-readme/img10.png" width="600"/>
 </p>
 
 ### 6. Ouvrir un terminal dans IntelliJ
+Il est très utile d'avoir un terminal ouvert pour pouvoir interagir avec le programme en ligne de commande.
 <p align="center">
 <img src="img-readme/main-readme/img11.png" width="600"/>
 </p>
@@ -89,29 +90,31 @@ Sélectionne *Git Bash*
 <img src="img-readme/main-readme/img13.png" width="500"/>
 </p>
 
-## III. Set up
-de la BDD via Docker
+## III. Set up de la BDD via Docker
 ### 1. Docker
-Lance le Docker Desktop en cliquant sur l'icône, tu dois obtenir l'écran suivant :
+Après avoir télechargé docker, lance le Docker Desktop en cliquant sur l'icône. Tu dois obtenir l'écran suivant :
 <p align="center">
 <img src="img-readme/main-readme/img14.png" width="800"/>
 </p>
-Ferme et ré-ouvre ton application IntelliJ pour que les changements effectués par l'installation de Docker soit pris en compte.<br>
-Pour s'assurer que ton install Docker a bien fonctionné, lance la commande suivante dans ton terminal :  <br>
-`docker run hello-world` <br>
-Tu dois obtenir ce résultat : <br>
+Ferme et ré-ouvre ton application IntelliJ pour que les changements effectués par l'installation de Docker soit pris en compte.
+<br>
+
+Pour s'assurer que ton install Docker a bien fonctionné, lance la commande suivante dans ton terminal :
+`docker run hello-world`
+
+Tu dois obtenir ce résultat :
 <br>
 <p align="center">
 <img src="img-readme/main-readme/img15.png" width="600"/>
 </p>
 
 ### 2. Lancement de la BDD
-Dans un terminal, place-toi dans le dossier webapp-hello-world
+Dans un terminal, si tu n'y es pas déja, place-toi dans le dossier webapp-hello-world.
 <p align="center">
 <img src="img-readme/main-readme/img33.png" width="700"/>
 </p>
 
-Lance la commande `docker compose up`
+Tu vas maintenant lancer le container de ta bdd. Pour ce faire, lance la commande `docker compose up`
 
 Tu dois obtenir ce résultat :
 <p align="center">
@@ -121,6 +124,8 @@ Tu dois obtenir ce résultat :
 Voilà ! Ta base de données est créée, mais c'est plus sympa si on peut la voir...
 
 ### 3. Afficher la BDD dans IntelliJ
+<em>Attention, cette étape ne fonctionne qu'avec la version "Ultimate" de IntelliJ. Pour rappel, tu peux la demander gratuitement en tant qu'étudiant.</em>
+
 Effectue les étapes suivantes :
 <p align="center">
 <img src="img-readme/main-readme/img16.png" width="700"/>
@@ -141,14 +146,15 @@ Saisie les infos (1-3), puis test la connexion à la bdd (4)
 Si c'est valide, clique sur *Apply* (5) puis *OK*
 
 ### 4. Initialisation de la BDD
-C'est cool d'avoir une BDD qui fonctionne mais c'est encore plus cool quand on peut lui insérer des données en 2 clics :
+C'est cool d'avoir une BDD qui fonctionne mais c'est encore plus cool quand on peut lui insérer des données en 2 clics.
+Il se trouve qu'il y a des script de peuplement SQL déjà tout prêts qui n'attendent qu'à être lancés :
 <p align="center">
 <img src="img-readme/main-readme/img21.png" width="500"/>
 </p>
 Clic droit + run : 
 <p align="center">
-<img src="img-readme/main-readme/img22.png" width="400"/>
-<img src="img-readme/main-readme/img23.png" width="500"/>
+<img src="img-readme/main-readme/img22.png" width="600"/>
+<img src="img-readme/main-readme/img23.png" width="400"/>
 </p>
 
 Tadaaaam (j'avoue un peu plus que 2 clics)
@@ -187,9 +193,9 @@ Sélectionne le Java 17 préalablement téléchargé et ajoute l'option `-Xms256
 <img src="img-readme/main-readme/img29.png" />
 <img src="img-readme/main-readme/img30.png" width="500"/>
 </p>
-Enfin :<br>
+Enfin, tu peux lancer ton application :<br>
 <br>
 <p align="center"><img src="img-readme/main-readme/img31.png" width="800"/></p>
 
-Alors ça marche ?
+Alors ça marche ? ✨​
 <p align="center"><img src="img-readme/main-readme/img32.png" width="900"/></p>
