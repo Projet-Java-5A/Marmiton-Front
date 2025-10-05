@@ -57,10 +57,9 @@ Pour récupérer le repository GitLab du TP, lance `git clone https://gitlab.tak
 
 Tu y trouveras toutes les ressources nécessaires à la suite du TP.
 
-Dans IntelliJ, ouvre le fichier `webapp-hello-world`. Pour ce faire, effectue les actions suivantes :
+Dans IntelliJ, ouvre dans un premier temps uniquement le dossier `back-skeleton`.
 <p align="center">
 <img src="img-readme/main-readme/img5.png" width="400"/>
-<img src="img-readme/main-readme/img6.png" width="400"/>
 </p>
 
 ### 5. Téléchargement de Java 17
@@ -100,7 +99,7 @@ Ferme et ré-ouvre ton application IntelliJ pour que les changements effectués 
 <br>
 
 Pour s'assurer que ton install Docker a bien fonctionné, lance la commande suivante dans ton terminal :
-`docker run hello-world`
+`docker run -d -p 80:80 docker/getting-started`
 
 Tu dois obtenir ce résultat :
 <br>
@@ -108,13 +107,23 @@ Tu dois obtenir ce résultat :
 <img src="img-readme/main-readme/img15.png" width="600"/>
 </p>
 
-### 2. Lancement de la BDD
-Dans un terminal, si tu n'y es pas déja, place-toi dans le dossier webapp-hello-world.
+### 2. Définition des variables d'environnement
+1. Copie-colle le `.env.sample` en `.env`
+2. Remplis le fichier `.env` avec les credentials de ton choix. Ce sont les accès de ta bdd.
+
+<img src="img-readme/main-readme/img36.png" width="300"/>
+
+Il est important que ces variables restent privées. Il ne faut pas les push avec le reste de ton code :
+
+3. Vérifie que le `.env` est bien dans le fichier .gitignore
+
+### 3. Lancement de la BDD
+Dans un terminal, place-toi si tu n'y es pas déjà à la racine du dossier back-skeleton.
 <p align="center">
 <img src="img-readme/main-readme/img33.png" width="700"/>
 </p>
 
-Tu vas maintenant lancer le container de ta bdd. Pour ce faire, lance la commande `docker compose up`
+Tu vas maintenant lancer le container de ta bdd. Pour ce faire, lance la commande `docker compose up -d`
 
 Tu dois obtenir ce résultat :
 <p align="center">
@@ -123,7 +132,7 @@ Tu dois obtenir ce résultat :
 
 Voilà ! Ta base de données est créée, mais c'est plus sympa si on peut la voir...
 
-### 3. Afficher la BDD dans IntelliJ
+### 4. Afficher la BDD dans IntelliJ
 <em>Attention, cette étape ne fonctionne qu'avec la version "Ultimate" de IntelliJ. Pour rappel, tu peux la demander gratuitement en tant qu'étudiant.</em>
 
 Effectue les étapes suivantes :
@@ -145,7 +154,7 @@ Saisie les infos (1-3), puis test la connexion à la bdd (4)
 
 Si c'est valide, clique sur *Apply* (5) puis *OK*
 
-### 4. Initialisation de la BDD
+### 5. Initialisation de la BDD
 C'est cool d'avoir une BDD qui fonctionne mais c'est encore plus cool quand on peut lui insérer des données en 2 clics.
 Il se trouve qu'il y a des script de peuplement SQL déjà tout prêts qui n'attendent qu'à être lancés :
 <p align="center">
@@ -167,8 +176,10 @@ Ce projet utilise Maven, qui permet de déclarer et gérer toutes ses dépendanc
 
 Il faut donc que l'IDE le détecte en tant que projet Maven. Pour ce faire, clique-droit sur le pom.xml et sélectionne l'option suivante :
 <p align="center">
-<img src="img-readme/main-readme/img35.png" width="600"/>
+<img src="img-readme/main-readme/img35.png" width="200"/>
 </p>
+
+Rajoute le plugin : [env-file](https://plugins.jetbrains.com/plugin/7861-envfile)
 
 Tu peux maintenant run ton projet ! <br>
 
@@ -193,7 +204,14 @@ Sélectionne le Java 17 préalablement téléchargé et ajoute l'option `-Xms256
 <img src="img-readme/main-readme/img29.png" />
 <img src="img-readme/main-readme/img30.png" width="500"/>
 </p>
-Enfin, tu peux lancer ton application :<br>
+
+Enfin, ajoute ton fichier `.env` comme ci-dessous (n'oublie pas d'activer les fichiers cachés)
+
+<img src="img-readme/main-readme/img37.png" width="600"/>
+<img src="img-readme/main-readme/img38.png" width="600"/>
+<img src="img-readme/main-readme/img39.png" width="600"/>
+
+Tu peux maintenant lancer ton application :
 <br>
 <p align="center"><img src="img-readme/main-readme/img31.png" width="800"/></p>
 
