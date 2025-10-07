@@ -1,24 +1,16 @@
-.login-container {
+.form-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: calc(100vh - 80px); // 80px is navbar height
+  padding: 2rem;
   background-color: #f5f5f5;
-  gap: 2rem;
 
-  .divider {
-    width: 1px;
-    height: 400px;
-    background-color: #ddd;
-  }
-
-  .login-form {
+  .recette-form {
     background: white;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px;
+    max-width: 600px;
 
     h2 {
       text-align: center;
@@ -26,9 +18,15 @@
       color: #333;
     }
 
-    mat-form-field {
+    mat-form-field, mat-slider {
       width: 100%;
       margin-bottom: 1rem;
+    }
+
+    #difficulty-slider-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: rgba(0,0,0,.6);
     }
 
     button {

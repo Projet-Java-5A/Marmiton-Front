@@ -1,0 +1,68 @@
+<div class="form-container">
+  <form [formGroup]="recetteForm" (ngSubmit)="onSubmit()" class="recette-form">
+    <h2>Ajouter une nouvelle recette</h2>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Nom de la recette</mat-label>
+      <input matInput formControlName="name" required>
+      <mat-error *ngIf="recetteForm.get('name')?.hasError('required')">
+        Le nom est requis
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Ingrédients</mat-label>
+      <mat-select formControlName="ingredients" multiple>
+        <mat-option *ngFor="let ingredient of ingredientsList" [value]="ingredient">{{ingredient}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="recetteForm.get('ingredients')?.hasError('required')">
+        Au moins un ingrédient est requis
+      </mat-error>
+    </mat-form-field>
+
+    <app-file-upload formControlName="image" requiredFileType="image/png, image/jpeg"></app-file-upload>
+
+    <mat-form-field appearance="fill">
+      <mat-label>URL de l'image</mat-label>
+      <input matInput formControlName="image">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Étapes de la recette</mat-label>
+      <textarea matInput formControlName="steps" required rows="5"></textarea>
+      <mat-error *ngIf="recetteForm.get('steps')?.hasError('required')">
+        Les étapes sont requises
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Estimation du prix (€)</mat-label>
+      <input matInput type="number" formControlName="price" required>
+      <mat-error *ngIf="recetteForm.get('price')?.hasError('required')">
+        Le prix est requis
+      </mat-error>
+      <mat-error *ngIf="recetteForm.get('price')?.hasError('min')">
+        Le prix doit être positif
+      </mat-error>
+    </mat-form-field>
+
+    <label id="difficulty-slider-label">Difficulté: {{recetteForm.get('difficulty')?.value}} / 5</label>
+    <mat-slider min="1" max="5" step="1" discrete thumbLabel>
+      <input matSliderThumb formControlName="difficulty">
+    </mat-slider>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!recetteForm.valid">
+      Ajouter la recette
+    </button>
+  </form>
+</div>
+<div>
+    TODO : Rajouter la possibilité de rajouter des ingrédients pas présents dans la liste
+    avec un bouton + (Validation admin ?)
+</div>
+<div>
+    TODO : Faire en sorte que cette page ne soit accessible que lorsque connecter
+</div>
+<div>
+    TODO : Modifier les boutons pour rajouter une photo, pour mettre une note (avec des étoiles), pour le prix par pallier de 10€, celui de la recherche d'ingrédient car possibilité de le faire par les types d'ingrédients( légumes, fruit ...)
+</div>
