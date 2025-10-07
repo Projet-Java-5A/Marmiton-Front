@@ -12,6 +12,7 @@ import { MatButtonModule } from "@angular/material/button"
 import { HttpClientModule } from "@angular/common/http"
 import { LoginComponent } from "./login/login.component"
 import { AddRecetteComponent } from "./add-recette/add-recette.component"
+import {MatToolbar} from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, HomeComponent],
@@ -25,7 +26,8 @@ import { AddRecetteComponent } from "./add-recette/add-recette.component"
     MatButtonModule,
     HttpClientModule,
     LoginComponent,
-    AddRecetteComponent
+    AddRecetteComponent,
+    MatToolbar,
   ],
   providers: [],
   bootstrap: [AppComponent],

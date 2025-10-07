@@ -1,12 +1,24 @@
-<nav>
-  <div>
-    <img src="../../assets/poti-chat.png" routerLink="" />
-    <mat-nav-list>
-      @for (link of links; track link) {
-      <a mat-list-item routerLink="{{ link.href }}" routerLinkActive="active">
-        <span>{{ link.name }}</span>
+<mat-toolbar color="primary" class="navbar-container">
+
+  <!-- Groupe de gauche (logo + liens principaux) -->
+  <div class="nav-left">
+    <img src="../../assets/poti-chat.png" class="navbar-logo" routerLink="" alt="Logo Marmitax"/>
+
+    <!-- On utilise mat-button pour des boutons à la taille adaptable -->
+    @for (link of mainLinks; track link) {
+      <a mat-button routerLink="{{ link.href }}" routerLinkActive="active-link">
+        {{ link.name }}
       </a>
-      }
-    </mat-nav-list>
+    }
   </div>
-</nav>
+
+  <!-- Groupe de droite (liens utilisateur) -->
+  <div class="nav-right">
+    @if (userLink) {
+      <a mat-button routerLink="{{ userLink.href }}" routerLinkActive="active-link">
+        {{ userLink.name }}
+      </a>
+    }
+  </div>
+
+</mat-toolbar>

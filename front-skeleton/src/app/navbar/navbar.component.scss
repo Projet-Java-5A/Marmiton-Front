@@ -1,41 +1,23 @@
-@use "theme";
-
-nav {
-  height: 80px;
-  background: linear-gradient(to right, theme.$common-purple, theme.$common-red);
-
-  div {
-    height: 100%;
-    display: flex;
-    align-items: center;
-
-    img {
-      margin-left: 20px;
-      height: 60px;
-      transition: 0.3s;
-      border-radius: 10%;
-
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
-  }
+.navbar-container {
+  display: flex;
+  justify-content: space-between; /* C'est la propriété clé : elle pousse les éléments enfants aux extrémités */
+  align-items: center;
+  padding: 0 16px; /* Ajoute un peu d'espace sur les côtés */
 }
 
-mat-nav-list {
-  margin-left: 50px;
+.nav-left {
   display: flex;
-  flex-direction: row;
-  width: 420px;
+  align-items: center;
+  gap: 15px; /* Ajoute un espace entre le logo et les boutons */
+}
 
-  span,
-  a {
-    font-size: large;
-    color: theme.$white;
-    transition: 0.3s;
+.navbar-logo {
+  height: 40px; /* Ajustez la taille selon votre image */
+  cursor: pointer;
+}
 
-    &:hover {
-      transform: scale(1.2);
-    }
-  }
+/* Style pour le lien actif, routerLinkActive l'ajoutera automatiquement */
+.active-link {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
 }

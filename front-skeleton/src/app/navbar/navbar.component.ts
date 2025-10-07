@@ -7,10 +7,11 @@ import { Link } from "models/links.model"
   styleUrls: ["./navbar.component.scss"],
 })
 export class NavbarComponent {
-  links: Link[] = []
+  mainLinks: Link[] = []
+  userLink: Link | null = null;
 
   constructor() {
-    this.links.push({ name: "Ajouter une recette", href: "add-recette" })
-    this.links.push({ name: "Login", href: "login" })
+    this.mainLinks.push({ name: "Ajouter une recette", href: "add-recette" });
+    this.userLink = { name: "Login", href: "login" };
   }
 }
