@@ -1,10 +1,8 @@
-// Imports nettoyés et organisés
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormArray } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
-// Modules Angular Material
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,10 +11,9 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatIconModule } from '@angular/material/icon';
 import { TextFieldModule } from '@angular/cdk/text-field';
 
-// --- On définit l'interface ici, en dehors de la classe ---
-// C'est la meilleure pratique.
+
 export interface Ingredient {
-  id: number; // ou string, selon votre backend
+  id: number;
   name: string;
 }
 
@@ -37,7 +34,7 @@ export interface Ingredient {
   templateUrl: './add-recette.component.html',
   styleUrl: './add-recette.component.scss'
 })
-// --- TOUTE LA LOGIQUE DOIT ÊTRE À L'INTÉRIEUR DE CES ACCOLADES ---
+
 export class AddRecetteComponent implements OnInit {
   recetteForm: FormGroup;
   ingredientsList: Ingredient[] = [];

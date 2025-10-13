@@ -1,7 +1,5 @@
-<!-- add-recette.component.html -->
 <div class="add-recette-container">
 
-  <!-- Le conteneur du formulaire original -->
   <div class="form-container">
     <form [formGroup]="recetteForm" (ngSubmit)="onSubmit()" class="recette-form">
       <h2>Ajouter une nouvelle recette</h2>
@@ -38,7 +36,7 @@
         </div>
       </div>
 
-      <!-- Champ Image : On garde seulement le champ pour l'URL -->
+      <!-- Champ Image -->
       <mat-form-field appearance="fill">
         <mat-label>URL de l'image</mat-label>
         <input matInput formControlName="image">
@@ -86,10 +84,9 @@
     </form>
   </div>
 
-  <!-- On ajoute le conteneur pour l'aperçu de l'image à l'extérieur du formulaire -->
+  <!-- Print de l'image -->
   <div class="preview-container">
     <h4>Aperçu de l'image</h4>
     <img *ngIf="recetteForm.get('image')?.value" [src]="recetteForm.get('image')?.value" alt="Aperçu de la recette" class="image-preview">
   </div>
 </div>
-<!-- Vos TODOs restent ici, inchangés -->

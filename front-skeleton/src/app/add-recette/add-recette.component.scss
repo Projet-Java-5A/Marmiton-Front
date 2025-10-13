@@ -1,22 +1,19 @@
-/* add-recette.component.scss */
-
-// 1. Conteneur principal qui va centrer tout le composant
+s//Conteneur principal qui va centrer tout le composant
 .add-recette-container {
   display: flex;
-  gap: 48px; // On peut augmenter un peu l'espace
+  gap: 48px;
   padding: 2rem;
   
-  // -- CHANGEMENTS CLÉS POUR LE CENTRAGE --
-  max-width: 1200px; // Largeur maximale pour l'ensemble du contenu
-  margin: 2rem auto; // Centre le conteneur horizontalement et ajoute de l'espace en haut/bas
+  max-width: 1200px;
+  margin: 2rem auto;
 }
 
 // Conteneur du formulaire (partie gauche)
 .form-container {
-  flex: 1; // Le formulaire prendra l'espace restant de manière flexible
+  flex: 1;
 }
 
-// Le formulaire lui-même
+// Le formulaire
 .recette-form {
   background: white;
   padding: 2rem;
@@ -63,14 +60,10 @@
   }
 }
 
-// 2. Conteneur de l'aperçu de l'image (partie droite)
+//Conteneur de l'aperçu de l'image (partie droite)
 .preview-container {
-  // -- CHANGEMENTS CLÉS POUR LA TAILLE DE L'IMAGE --
-  // On lui donne une taille de base fixe au lieu d'une proportion.
-  // flex: [grow] [shrink] [basis];
-  flex: 0 0 400px; // Ne grandit pas, ne rétrécit pas, base de 400px.
+  flex: 0 0 400px;
   
-  // Amélioration UX : l'image reste visible quand on scrolle
   position: sticky;
   top: 2rem;
 
@@ -86,7 +79,6 @@
   border-radius: 8px;
   border: 1px solid #ddd;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  // Assure que l'image ne soit pas déformée
   object-fit: cover; 
   height: auto;
 }
