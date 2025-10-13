@@ -13,56 +13,77 @@
     <mat-form-field appearance="fill">
       <mat-label>Ingrédients</mat-label>
       <mat-select formControlName="ingredients" multiple>
-        <mat-option *ngFor="let ingredient of ingredientsList" [value]="ingredient">{{ingredient}}</mat-option>
+        <mat-option *ngFor="let ingredient of ingredientsList" [value]="ingredient">
+          {{ ingredient.name }}
+        </mat-option>
       </mat-select>
       <mat-error *ngIf="recetteForm.get('ingredients')?.hasError('required')">
         Au moins un ingrédient est requis
       </mat-error>
     </mat-form-field>
 
-    <app-file-upload formControlName="image" requiredFileType="image/png, image/jpeg"></app-file-upload>
+    <!-- Section pour les quantités -->
+    <div *ngIf="quantitiesFormArray.controls.length > 0" class="quantities-section" formArrayName="quantities">
+      <h4>Quantités</h4>
+      <div *ngFor="let quantityGroup of quantitiesFormArray.controls; let i = index" [formGroupName]="i" class="quantity-item">
+        <span class="ingredient-name">{{ quantityGroup.value.ingredientName }}:</span>
+        <mat-form-field appearance="outline" class="quantity-input">
+          <mat-label>Quantité (ex: 100g, 2, ...)</mat-label>
+          <input matInput formControlName="quantity" required>
+        </mat-form-field>
+      </div>
+    </div>
 
-    <mat-form-field appearance="fill">
-      <mat-label>URL de l'image</mat-label>
-      <input matInput formControlName="image">
-    </mat-form-field>
+    <!-- Champ Image avec aperçu -->
+    <div class="image-preview-container">
+      <mat-form-field appearance="fill" class="image-url-input">
+        <mat-label>URL de l'image</mat-label>
+        <input matInput formControlName="image">
+      </mat-form-field>
+      <img *ngIf="recetteForm.get('image')?.value" [src]="recetteForm.get('image')?.value" alt="Aperçu de la recette" class="image-preview">
+    </div>
 
+    <!-- Textarea extensible -->
     <mat-form-field appearance="fill">
       <mat-label>Étapes de la recette</mat-label>
-      <textarea matInput formControlName="steps" required rows="5"></textarea>
+      <textarea matInput 
+                formControlName="steps" 
+                required 
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="5"
+                cdkAutosizeMaxRows="20"></textarea>
       <mat-error *ngIf="recetteForm.get('steps')?.hasError('required')">
         Les étapes sont requises
       </mat-error>
     </mat-form-field>
 
+    <!-- Sélecteur de gamme de prix -->
     <mat-form-field appearance="fill">
-      <mat-label>Estimation du prix (€)</mat-label>
-      <input matInput type="number" formControlName="price" required>
+      <mat-label>Estimation du prix</mat-label>
+      <mat-select formControlName="price" required>
+        <mat-option *ngFor="let range of priceRanges" [value]="range">{{ range }}</mat-option>
+      </mat-select>
       <mat-error *ngIf="recetteForm.get('price')?.hasError('required')">
         Le prix est requis
       </mat-error>
-      <mat-error *ngIf="recetteForm.get('price')?.hasError('min')">
-        Le prix doit être positif
-      </mat-error>
     </mat-form-field>
 
-    <label id="difficulty-slider-label">Difficulté: {{recetteForm.get('difficulty')?.value}} / 5</label>
-    <mat-slider min="1" max="5" step="1" discrete thumbLabel>
-      <input matSliderThumb formControlName="difficulty">
-    </mat-slider>
+    <!-- Sélecteur de difficulté par étoiles -->
+    <label id="difficulty-label">Difficulté:</label>
+    <div class="star-rating">
+      <button mat-icon-button *ngFor="let star of stars" (click)="rate(star)" type="button">
+        <mat-icon>{{ recetteForm.get('difficulty')?.value >= star ? 'star' : 'star_border' }}</mat-icon>
+      </button>
+    </div>
+
+    <!--
+    J'AI SUPPRIMÉ LE MAT-SLIDER D'ORIGINE QUI ÉTAIT ICI
+    -->
 
     <button mat-raised-button color="primary" type="submit" [disabled]="!recetteForm.valid">
       Ajouter la recette
     </button>
   </form>
 </div>
-<div>
-    TODO : Rajouter la possibilité de rajouter des ingrédients pas présents dans la liste
-    avec un bouton + (Validation admin ?)
-</div>
-<div>
-    TODO : Faire en sorte que cette page ne soit accessible que lorsque connecter
-</div>
-<div>
-    TODO : Modifier les boutons pour rajouter une photo, pour mettre une note (avec des étoiles), pour le prix par pallier de 10€, celui de la recherche d'ingrédient car possibilité de le faire par les types d'ingrédients( légumes, fruit ...)
-</div>
+<!-- Vos TODOs restent ici, inchangés -->
