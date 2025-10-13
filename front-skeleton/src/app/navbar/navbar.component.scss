@@ -1,23 +1,85 @@
-.navbar-container {
+:host {
+  display: block;
+  font-family: Arial, sans-serif;
+  background-color: #fdfdfd;
+}
+
+$primary-color: #d17a93;
+$secondary-color: #00a9a7;
+$text-color: #008b8b;
+$font-cursive: 'Dancing Script', cursive;
+
+// --- Header ---
+.main-header {
   display: flex;
-  justify-content: space-between; /* C'est la propriété clé : elle pousse les éléments enfants aux extrémités */
+  justify-content: space-between;
   align-items: center;
-  padding: 0 16px; /* Ajoute un peu d'espace sur les côtés */
-}
+  padding: 1rem 2rem;
+  background-color: $primary-color;
+  border-radius: 20px;
+  margin: 1em;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 15px; /* Ajoute un espace entre le logo et les boutons */
-}
+  .search-container {
+    position: relative;
+    flex-grow: 1;
+    margin-right: 2rem;
+    max-width: 600px;
 
-.navbar-logo {
-  height: 40px; /* Ajustez la taille selon votre image */
-  cursor: pointer;
-}
+    input {
+      width: 100%;
+      padding: 0.9rem 1.5rem;
+      border-radius: 30px;
+      border: 2px solid transparent;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
 
-/* Style pour le lien actif, routerLinkActive l'ajoutera automatiquement */
-.active-link {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+      &:focus {
+        border-color: $secondary-color;
+      }
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+      color: $text-color;
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .add-recipe-btn, .user-profile-btn {
+    padding: 0.9rem 1.8rem;
+    background-color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    color: $text-color;
+    font-family: $font-cursive;
+    font-size: 1.3rem;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  .user-profile-btn {
+    padding: 0.8rem;
+    width: 50px;
+    height: 50px;
+    font-size: 1.8rem;
+  }
 }

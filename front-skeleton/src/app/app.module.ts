@@ -13,9 +13,10 @@ import { HttpClientModule } from "@angular/common/http"
 import { LoginComponent } from "./login/login.component"
 import { AddRecetteComponent } from "./add-recette/add-recette.component"
 import {MatToolbar} from "@angular/material/toolbar";
+import { FooterComponent } from "footer/footer.component"
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, HomeComponent],
+  declarations: [AppComponent, NavbarComponent, HomeComponent, FooterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

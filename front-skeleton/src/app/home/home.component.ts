@@ -15,7 +15,7 @@ export class HomeComponent {
   favoris: Recette[] = [
     {
       nom: 'Tarte aux framboises',
-      imageUrl: 'https://images.pexels.com/photos/1327821/pexels-photo-1327821.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+      imageUrl: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fsucre-saintlouis.com%2Frecette%2Frecette-tarte-aux-framboises%2F&psig=AOvVaw1ZVWbayMaX5Urzwj3LG-1Q&ust=1760435499239000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCOCJwLfzoJADFQAAAAAdAAAAABAE'
     },
     {
       nom: 'Gratin dauphinois',

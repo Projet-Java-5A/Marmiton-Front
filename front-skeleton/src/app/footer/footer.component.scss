@@ -1,0 +1,31 @@
+// Définition des variables de couleur pour une maintenance facile
+$primary-color: #d17a93;
+
+// --- Style du Footer ---
+.main-footer {
+  // --- Positionnement ---
+  position: fixed; // Clé pour le fixer à l'écran
+  bottom: 1em;     // Marge par rapport au bas de la page
+  left: 1em;       // Marge par rapport à la gauche
+  right: 1em;      // Marge par rapport à la droite
+  z-index: 1000;   // S'assure qu'il reste au-dessus des autres éléments
+
+  // --- Apparence Visuelle ---
+  display: flex;
+  justify-content: flex-end; // Aligne l'élément enfant à droite
+  align-items: center;       // Centre l'élément enfant verticalement
+  height: 70px;
+  padding: 1rem 2rem;
+  background-color: $primary-color;
+  border-radius: 20px;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); // Ombre pour un effet de profondeur
+  margin: 0; // La marge est gérée par les propriétés de positionnement
+
+  // --- Style de l'élément blanc à l'intérieur ---
+  .footer-button-placeholder {
+    width: 120px;
+    height: 45px;
+    background-color: white;
+    border-radius: 30px;
+  }
+}

@@ -1,24 +1,12 @@
-<mat-toolbar color="primary" class="navbar-container">
-
-  <!-- Groupe de gauche (logo + liens principaux) -->
-  <div class="nav-left">
-    <img src="../../assets/poti-chat.png" class="navbar-logo" routerLink="" alt="Logo Marmitax"/>
-
-    <!-- On utilise mat-button pour des boutons à la taille adaptable -->
-    @for (link of mainLinks; track link) {
-      <a mat-button routerLink="{{ link.href }}" routerLinkActive="active-link">
-        {{ link.name }}
-      </a>
-    }
+<header class="main-header">
+  <div class="search-container">
+    <input type="text" placeholder="Rechercher une recette...">
+    <i class='bx bx-search search-icon'></i>
   </div>
-
-  <!-- Groupe de droite (liens utilisateur) -->
-  <div class="nav-right">
-    @if (userLink) {
-      <a mat-button routerLink="{{ userLink.href }}" routerLinkActive="active-link">
-        {{ userLink.name }}
-      </a>
-    }
+  <div class="actions">
+    <a href="/add-recette" class="add-recipe-btn">Ajouter une recette</a>
+    <a href="/login" class="user-profile-btn">
+      <i class='bx bx-user'></i>
+    </a>
   </div>
-
-</mat-toolbar>
+</header>
