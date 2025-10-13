@@ -1,44 +1,114 @@
+/* Pour la police cursive, ajoutez ceci dans votre fichier styles.scss global : */
+/* @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap'); */
+
 :host {
-  display: flex;
-  align-content: center;
-  align-items: center;
-  margin: 25px;
-  flex-direction: column;
+  display: block;
+  font-family: Arial, sans-serif;
+  background-color: #fdfdfd;
+}
 
-  .title {
-    font-family: Caveat, sans-serif;
-    font-size: 4.5em;
-    font-weight: 700;
-    margin: 30px 0;
-  }
+// Variables de couleur pour une maintenance facile
+$primary-color: #d17a93;
+$secondary-color: #00a9a7;
+$text-color: #008b8b;
+$font-cursive: 'Dancing Script', cursive;
 
-  .welcome {
+
+// --- Main Content ---
+main {
+  padding: 1rem 2rem;
+  // AJOUT : Espace en bas pour ne pas que le contenu soit caché par le footer
+  padding-bottom: 120px;
+
+  .section-title {
     text-align: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    font-size: x-large;
+    font-family: $font-cursive;
+    color: $text-color;
+    font-size: 2.8rem;
+    margin: 1.5rem 0;
+  }
+}
+
+.favorites-container {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  padding-bottom: 1.5rem;
+
+  &::-webkit-scrollbar {
+    height: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #e9e9e9;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #cccccc;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+  }
+}
+
+.recipe-card {
+  flex: 0 0 320px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   }
 
-  .card {
-    margin-top: 50px;
-    margin-left: 50px;
-    border: none;
-    display: flex;
-    align-items: center;
+  img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+  }
 
-    img {
-      height: 64%;
-      width: 68%;
-      margin-left: 20px;
-    }
+  .recipe-title-banner {
+    background-color: $secondary-color;
+    padding: 1.2rem;
+    text-align: center;
 
-    .card-text {
-      font-family: "Dancing Script", sans-serif;
-      font-size: x-large;
-      margin-top: 0;
-      line-height: 1.7;
-      max-width: 400px;
-      margin-left: 15px;
+    h3 {
+      margin: 0;
+      color: white;
+      font-family: $font-cursive;
+      font-size: 1.8rem;
+      font-weight: 700;
     }
+  }
+}
+
+// --- Footer ---
+.main-footer {
+  // MODIFICATIONS POUR FIXER LE FOOTER
+  position: fixed;
+  bottom: 1em; // Maintient la marge du bas
+  left: 1em;   // Maintient la marge de gauche
+  right: 1em;  // Maintient la marge de droite
+  z-index: 1000; // S'assure qu'il est au-dessus du reste du contenu
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); // Ombre pour un effet de superposition
+
+  // Styles existants
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: $primary-color;
+  border-radius: 20px;
+  height: 70px;
+  margin: 0; // On retire la marge car la position est gérée par left/right/bottom
+
+  .footer-button-placeholder {
+    width: 120px;
+    height: 45px;
+    background-color: white;
+    border-radius: 30px;
   }
 }
