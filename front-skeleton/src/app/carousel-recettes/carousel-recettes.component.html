@@ -1,0 +1,31 @@
+<swiper-container
+  slides-per-view="auto"
+  [spaceBetween]="30"
+  [loop]="true"
+  [autoplay]="{
+    delay: 2500,
+    disableOnInteraction: false
+  }"
+  navigation="true"
+  class="recipe-carousel"
+>
+  @for (recette of recettes; track recette.id) {
+    <swiper-slide>
+      <article class="recipe-card">
+        <div class="recipe-image-container">
+          @if (recette.imageUrl) {
+            <img [src]="recette.imageUrl" [alt]="'Photo de ' + recette.nom">
+          } @else {
+            <div class="image-placeholder">
+              <span>Photo de {{ recette.nom }}</span>
+            </div>
+          }
+        </div>
+        <div class="recipe-title-banner">
+          <h3>{{ recette.nom }}</h3>
+        </div>
+      </article>
+    </swiper-slide>
+  }
+</swiper-container>```
+

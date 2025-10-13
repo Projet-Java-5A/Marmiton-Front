@@ -1,14 +1,8 @@
-<main>
+<div class="home-container">
+
+  <!-- Le titre de la section -->
   <h2 class="section-title">Les favoris du moment</h2>
 
-  <section class="favorites-container">
-    @for (recette of favoris; track recette.nom) {
-      <article class="recipe-card">
-        <img [src]="recette.imageUrl" [alt]="'Photo de ' + recette.nom">
-        <div class="recipe-title-banner">
-          <h3>{{ recette.nom }}</h3>
-        </div>
-      </article>
-    }
-  </section>
-</main>
+  <app-carousel-recettes [recettes]="recettesFavorites"></app-carousel-recettes>
+
+</div>

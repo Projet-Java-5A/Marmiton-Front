@@ -1,0 +1,77 @@
+// Import des polices et variables
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+$secondary-color: #00a9a7;
+$font-cursive: 'Dancing Script', cursive;
+
+:host {
+  display: block; // Important pour que le composant occupe de l'espace
+  width: 100%;
+}
+
+.recipe-carousel {
+  padding: 1rem 0; // Espace vertical
+
+  swiper-slide {
+    width: 300px; // Définit la largeur de chaque carte
+    height: auto; // La hauteur s'adapte au contenu
+  }
+}
+
+// Style des cartes (similaire au code précédent pour la cohérence)
+.recipe-card {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%; // La carte prend toute la hauteur de la slide
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.recipe-image-container {
+  height: 220px;
+  background-color: #f8f8f8;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a0a0a0;
+  font-size: 0.9rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.recipe-title-banner {
+  background-color: $secondary-color;
+  padding: 1.2rem;
+  text-align: center;
+
+  h3 {
+    margin: 0;
+    color: white;
+    font-family: $font-cursive;
+    font-size: 1.8rem;
+  }
+}
+
+// --- Style des flèches de navigation de Swiper ---
+:host {
+  --swiper-navigation-color: #{$secondary-color};
+  --swiper-navigation-size: 30px;
+}

@@ -1,81 +1,97 @@
-:host {
-  display: block;
-  font-family: Arial, sans-serif;
-  background-color: #fdfdfd;
-}
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 
-$primary-color: #d17a93;
 $secondary-color: #00a9a7;
-$text-color: #008b8b;
 $font-cursive: 'Dancing Script', cursive;
+$text-color-placeholder: #a0a0a0;
 
-// --- Main Content ---
-main {
-  padding: 1rem 2rem;
-  padding-bottom: 120px;
-
-  .section-title {
-    text-align: center;
-    font-family: $font-cursive;
-    color: $text-color;
-    font-size: 2.8rem;
-    margin: 1.5rem 0;
-  }
-}
-
-.favorites-container {
+.home-page-container {
   display: flex;
-  gap: 2rem;
-  overflow-x: auto;
-  padding-bottom: 1.5rem;
-
-  &::-webkit-scrollbar {
-    height: 10px;
-  }
-  &::-webkit-scrollbar-track {
-    background: #e9e9e9;
-    border-radius: 10px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #cccccc;
-    border-radius: 10px;
-  }
-  &::-webkit-scrollbar-thumb:hover {
-    background: #b3b3b3;
-  }
+  flex-direction: column;
+  min-height: 100vh; 
 }
+
+.content-area {
+  flex: 1; 
+  width: 100%;
+  max-width: 1400px; 
+  margin: 0 auto; 
+  padding: 2rem;
+}
+
+.section-title {
+  text-align: center;
+  font-family: $font-cursive;
+  color: $secondary-color;
+  font-size: 2.8rem;
+  margin-bottom: 2.5rem;
+}
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem; 
 
 .recipe-card {
-  flex: 0 0 320px;
   background-color: white;
   border-radius: 15px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
   overflow: hidden;
+  display: flex;
+  flex-direction: column; 
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  }
-
-  img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-  }
-
-  .recipe-title-banner {
-    background-color: $secondary-color;
-    padding: 1.2rem;
-    text-align: center;
-
-    h3 {
-      margin: 0;
-      color: white;
-      font-family: $font-cursive;
-      font-size: 1.8rem;
-      font-weight: 700;
-    }
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   }
 }
 
+.recipe-image-container {
+  height: 220px;
+  background-color: #f8f8f8; // Fond pour les placeholders
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; // Assure que l'image remplit l'espace sans se déformer
+  }
+}
+
+// --- Placeholder pour les images manquantes ---
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $text-color-placeholder;
+  font-size: 0.9rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.recipe-title-banner {
+  background-color: $secondary-color;
+  padding: 1.2rem;
+  text-align: center;
+  margin-top: auto; // Pousse la bannière en bas si la carte s'étire
+
+  h3 {
+    margin: 0;
+    color: white;
+    font-family: $font-cursive;
+    font-size: 1.8rem;
+  }
+}
+
+// --- Ajustements pour les petits écrans (Mobiles) ---
+@media (max-width: 600px) {
+  .content-area {
+    padding: 1rem; // Moins de padding sur mobile
+  }
+
+  .section-title {
+    font-size: 2.2rem; // Titre plus petit
+  }
+}
+}

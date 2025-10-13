@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core"
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from "@angular/platform-browser"
 import { AppRoutingModule } from "app-routing.module"
 import { AppComponent } from "app.component"
@@ -12,11 +12,13 @@ import { MatButtonModule } from "@angular/material/button"
 import { HttpClientModule } from "@angular/common/http"
 import { LoginComponent } from "./login/login.component"
 import { AddRecetteComponent } from "./add-recette/add-recette.component"
-import {MatToolbar} from "@angular/material/toolbar";
+import { MatToolbar } from "@angular/material/toolbar";
 import { FooterComponent } from "footer/footer.component"
+import { CarouselRecettesComponent } from './carousel-recettes/carousel-recettes.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, HomeComponent, FooterComponent],
+  declarations: [AppComponent, NavbarComponent, HomeComponent, FooterComponent, CarouselRecettesComponent,],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -29,8 +31,10 @@ import { FooterComponent } from "footer/footer.component"
     LoginComponent,
     AddRecetteComponent,
     MatToolbar,
+    RouterModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule {}
