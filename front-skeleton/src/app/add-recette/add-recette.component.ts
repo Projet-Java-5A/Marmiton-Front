@@ -62,7 +62,7 @@ export class AddRecetteComponent implements OnInit {
   }
 
   fetchIngredients() {
-    this.http.get<Ingredient[]>('http://localhost:8080/ingredient/all').subscribe({
+    this.http.get<Ingredient[]>('http://localhost:8080/ingredients').subscribe({
       next: (data) => {
         this.ingredientsList = data;
         console.log('Ingrédients chargés :', this.ingredientsList);
