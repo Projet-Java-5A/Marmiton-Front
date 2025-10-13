@@ -1,89 +1,95 @@
-<div class="form-container">
-  <form [formGroup]="recetteForm" (ngSubmit)="onSubmit()" class="recette-form">
-    <h2>Ajouter une nouvelle recette</h2>
+<!-- add-recette.component.html -->
+<div class="add-recette-container">
 
-    <mat-form-field appearance="fill">
-      <mat-label>Nom de la recette</mat-label>
-      <input matInput formControlName="name" required>
-      <mat-error *ngIf="recetteForm.get('name')?.hasError('required')">
-        Le nom est requis
-      </mat-error>
-    </mat-form-field>
+  <!-- Le conteneur du formulaire original -->
+  <div class="form-container">
+    <form [formGroup]="recetteForm" (ngSubmit)="onSubmit()" class="recette-form">
+      <h2>Ajouter une nouvelle recette</h2>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Ingrédients</mat-label>
-      <mat-select formControlName="ingredients" multiple>
-        <mat-option *ngFor="let ingredient of ingredientsList" [value]="ingredient">
-          {{ ingredient.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="recetteForm.get('ingredients')?.hasError('required')">
-        Au moins un ingrédient est requis
-      </mat-error>
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Nom de la recette</mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="recetteForm.get('name')?.hasError('required')">
+          Le nom est requis
+        </mat-error>
+      </mat-form-field>
 
-    <!-- Section pour les quantités -->
-    <div *ngIf="quantitiesFormArray.controls.length > 0" class="quantities-section" formArrayName="quantities">
-      <h4>Quantités</h4>
-      <div *ngFor="let quantityGroup of quantitiesFormArray.controls; let i = index" [formGroupName]="i" class="quantity-item">
-        <span class="ingredient-name">{{ quantityGroup.value.ingredientName }}:</span>
-        <mat-form-field appearance="outline" class="quantity-input">
-          <mat-label>Quantité (ex: 100g, 2, ...)</mat-label>
-          <input matInput formControlName="quantity" required>
-        </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Ingrédients</mat-label>
+        <mat-select formControlName="ingredients" multiple>
+          <mat-option *ngFor="let ingredient of ingredientsList" [value]="ingredient">
+            {{ ingredient.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="recetteForm.get('ingredients')?.hasError('required')">
+          Au moins un ingrédient est requis
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Section pour les quantités -->
+      <div *ngIf="quantitiesFormArray.controls.length > 0" class="quantities-section" formArrayName="quantities">
+        <h4>Quantités</h4>
+        <div *ngFor="let quantityGroup of quantitiesFormArray.controls; let i = index" [formGroupName]="i" class="quantity-item">
+          <span class="ingredient-name">{{ quantityGroup.value.ingredientName }}:</span>
+          <mat-form-field appearance="outline" class="quantity-input">
+            <mat-label>Quantité (ex: 100g, 2, ...)</mat-label>
+            <input matInput formControlName="quantity" required>
+          </mat-form-field>
+        </div>
       </div>
-    </div>
 
-    <!-- Champ Image avec aperçu -->
-    <div class="image-preview-container">
-      <mat-form-field appearance="fill" class="image-url-input">
+      <!-- Champ Image : On garde seulement le champ pour l'URL -->
+      <mat-form-field appearance="fill">
         <mat-label>URL de l'image</mat-label>
         <input matInput formControlName="image">
       </mat-form-field>
-      <img *ngIf="recetteForm.get('image')?.value" [src]="recetteForm.get('image')?.value" alt="Aperçu de la recette" class="image-preview">
-    </div>
 
-    <!-- Textarea extensible -->
-    <mat-form-field appearance="fill">
-      <mat-label>Étapes de la recette</mat-label>
-      <textarea matInput 
-                formControlName="steps" 
-                required 
-                cdkTextareaAutosize
-                #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="5"
-                cdkAutosizeMaxRows="20"></textarea>
-      <mat-error *ngIf="recetteForm.get('steps')?.hasError('required')">
-        Les étapes sont requises
-      </mat-error>
-    </mat-form-field>
+      <!-- Textarea extensible -->
+      <mat-form-field appearance="fill">
+        <mat-label>Étapes de la recette</mat-label>
+        <textarea matInput 
+                  formControlName="steps" 
+                  required 
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="5"
+                  cdkAutosizeMaxRows="20"></textarea>
+        <mat-error *ngIf="recetteForm.get('steps')?.hasError('required')">
+          Les étapes sont requises
+        </mat-error>
+      </mat-form-field>
 
-    <!-- Sélecteur de gamme de prix -->
-    <mat-form-field appearance="fill">
-      <mat-label>Estimation du prix</mat-label>
-      <mat-select formControlName="price" required>
-        <mat-option *ngFor="let range of priceRanges" [value]="range">{{ range }}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="recetteForm.get('price')?.hasError('required')">
-        Le prix est requis
-      </mat-error>
-    </mat-form-field>
+      <!-- Sélecteur de gamme de prix -->
+      <mat-form-field appearance="fill">
+        <mat-label>Estimation du prix</mat-label>
+        <mat-select formControlName="price" required>
+          <mat-option *ngFor="let range of priceRanges" [value]="range">{{ range }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="recetteForm.get('price')?.hasError('required')">
+          Le prix est requis
+        </mat-error>
+      </mat-form-field>
 
-    <!-- Sélecteur de difficulté par étoiles -->
-    <label id="difficulty-label">Difficulté:</label>
-    <div class="star-rating">
-      <button mat-icon-button *ngFor="let star of stars" (click)="rate(star)" type="button">
-        <mat-icon>{{ recetteForm.get('difficulty')?.value >= star ? 'star' : 'star_border' }}</mat-icon>
+      <!-- Sélecteur de difficulté par étoiles -->
+      <div class="difficulty-container">
+        <label id="difficulty-label">Difficulté:</label>
+        <div class="star-rating">
+          <button mat-icon-button *ngFor="let star of stars" (click)="rate(star)" type="button">
+            <mat-icon>{{ recetteForm.get('difficulty')?.value >= star ? 'star' : 'star_border' }}</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="!recetteForm.valid">
+        Ajouter la recette
       </button>
-    </div>
+    </form>
+  </div>
 
-    <!--
-    J'AI SUPPRIMÉ LE MAT-SLIDER D'ORIGINE QUI ÉTAIT ICI
-    -->
-
-    <button mat-raised-button color="primary" type="submit" [disabled]="!recetteForm.valid">
-      Ajouter la recette
-    </button>
-  </form>
+  <!-- On ajoute le conteneur pour l'aperçu de l'image à l'extérieur du formulaire -->
+  <div class="preview-container">
+    <h4>Aperçu de l'image</h4>
+    <img *ngIf="recetteForm.get('image')?.value" [src]="recetteForm.get('image')?.value" alt="Aperçu de la recette" class="image-preview">
+  </div>
 </div>
 <!-- Vos TODOs restent ici, inchangés -->

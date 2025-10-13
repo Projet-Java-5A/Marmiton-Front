@@ -1,38 +1,92 @@
-.form-container {
+/* add-recette.component.scss */
+
+// 1. Conteneur principal qui va centrer tout le composant
+.add-recette-container {
   display: flex;
-  justify-content: center;
+  gap: 48px; // On peut augmenter un peu l'espace
   padding: 2rem;
-  background-color: #f5f5f5;
+  
+  // -- CHANGEMENTS CLÉS POUR LE CENTRAGE --
+  max-width: 1200px; // Largeur maximale pour l'ensemble du contenu
+  margin: 2rem auto; // Centre le conteneur horizontalement et ajoute de l'espace en haut/bas
+}
 
-  .recette-form {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+// Conteneur du formulaire (partie gauche)
+.form-container {
+  flex: 1; // Le formulaire prendra l'espace restant de manière flexible
+}
+
+// Le formulaire lui-même
+.recette-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+
+  mat-form-field {
     width: 100%;
-    max-width: 600px;
+    margin-bottom: 1rem;
+  }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 2rem;
-      color: #333;
-    }
+  .difficulty-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    justify-content: flex-start; 
+  }
 
-    mat-form-field, mat-slider {
-      width: 100%;
-      margin-bottom: 1rem;
-    }
+  #difficulty-label {
+    margin: 0;
+    flex-shrink: 0;
+  }
 
-    #difficulty-slider-label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: rgba(0,0,0,.6);
-    }
-
+  .star-rating {
+    display: flex;
     button {
-      width: 100%;
-      margin-top: 1rem;
-      padding: 0.8rem;
+      color: #ffd740;
     }
   }
+ 
+  button[type="submit"] {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.8rem;
+  }
+}
+
+// 2. Conteneur de l'aperçu de l'image (partie droite)
+.preview-container {
+  // -- CHANGEMENTS CLÉS POUR LA TAILLE DE L'IMAGE --
+  // On lui donne une taille de base fixe au lieu d'une proportion.
+  // flex: [grow] [shrink] [basis];
+  flex: 0 0 400px; // Ne grandit pas, ne rétrécit pas, base de 400px.
+  
+  // Amélioration UX : l'image reste visible quand on scrolle
+  position: sticky;
+  top: 2rem;
+
+  h4 {
+    margin-top: 0;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+}
+
+.image-preview {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  // Assure que l'image ne soit pas déformée
+  object-fit: cover; 
+  height: auto;
 }
