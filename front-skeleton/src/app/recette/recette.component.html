@@ -1,1 +1,63 @@
-<p>recette works!</p>
+<!-- recette.component.html (Légèrement modifié) -->
+@if (recette$ | async; as recette) {
+  <div class="page-container">
+    
+    <!-- Le carnet de recette devient le conteneur principal -->
+    <main class="recipe-book">
+      
+      <!-- Bouton Retour (déplacé à l'intérieur) -->
+      <button class="back-button" (click)="goBack()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      </button>
+
+      <!-- Page de Gauche : Ingrédients -->
+      <section class="page left-page">
+        <h2 class="section-title">Les ingrédients</h2>
+        
+        <div class="meta-info">
+          <div class="rating-stars">
+            @for (star of stars; track star) {
+              <span class="star" [class.filled]="star <= recette.note">&#9733;</span>
+            }
+          </div>
+          <div class="details-text">
+            <span>{{ recette.tempsPreparation }}</span>
+            <span>{{ recette.prixApproximatif }}</span>
+          </div>
+        </div>
+
+        <ul class="ingredients-list">
+          @for (ingredient of recette.ingredients; track ingredient) {
+            <li>{{ ingredient }}</li>
+          }
+        </ul>
+        
+        <!-- Placeholder pour la photo, poussé en bas -->
+        <div class="image-placeholder">
+          Photo de {{ recette.nom }}
+        </div>
+      </section>
+
+      <!-- Page de Droite : Recette -->
+      <section class="page right-page">
+        <div class="binder-rings">
+          <div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div>
+        </div>
+        
+        <h2 class="section-title">La recette</h2>
+
+        <ol class="recipe-steps">
+          @for (etape of recette.etapes; track etape) {
+            <li>{{ etape }}</li>
+          }
+        </ol>
+      </section>
+
+    </main>
+  </div>
+} @else {
+  <!-- Message de chargement centré -->
+  <div class="loading-container">
+    <p>Chargement de la recette...</p>
+  </div>
+}

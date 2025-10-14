@@ -42,6 +42,10 @@ export class HomeComponent implements OnInit {
       {
         id: 6,
         nom: 'Crème brûlée',
+      },
+      {
+        id: 7,
+        nom: 'Crème archi brûlée',
       }
     ];
   }

@@ -1,12 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Recette, RecetteService } from '../recette/recette.service';
+import { Observable, switchMap } from 'rxjs';
+import { CommonModule, Location } from '@angular/common'; 
 
 @Component({
-  selector: 'recette',
+  selector: 'app-recette',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterLink],
   templateUrl: './recette.component.html',
-  styleUrl: './recette.component.scss'
+  styleUrls: ['./recette.component.scss']
 })
-export class RecetteComponent {
+export class RecetteComponent implements OnInit {
+  recette$!: Observable<Recette | undefined>;
+  stars: number[] = [1, 2, 3, 4, 5];
 
+  constructor(
+    private route: ActivatedRoute,
+    private recetteService: RecetteService,
+    private location: Location 
+  ) { }
+
+  ngOnInit(): void {
+    this.recette$ = this.route.paramMap.pipe(
+      switchMap(params => {
+        const id = Number(params.get('id'));
+        return this.recetteService.getRecetteById(id);
+      })
+    );
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
 }
