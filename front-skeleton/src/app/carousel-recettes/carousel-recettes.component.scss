@@ -80,3 +80,10 @@ $font-cursive: 'Dancing Script', cursive;
   --swiper-navigation-color: #{$secondary-color};
   --swiper-navigation-size: 30px;
 }
+
+.recipe-link {
+  text-decoration: none; 
+  color: inherit;
+  display: block;
+  height: 100%;
+}

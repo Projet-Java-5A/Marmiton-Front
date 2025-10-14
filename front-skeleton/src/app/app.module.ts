@@ -18,7 +18,7 @@ import { CarouselRecettesComponent } from './carousel-recettes/carousel-recettes
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, HomeComponent, FooterComponent, CarouselRecettesComponent,],
+  declarations: [AppComponent, NavbarComponent, HomeComponent, FooterComponent, CarouselRecettesComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,6 +35,6 @@ import { RouterModule } from '@angular/router';
   ],
   providers: [],
   bootstrap: [AppComponent],
-    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule {}
