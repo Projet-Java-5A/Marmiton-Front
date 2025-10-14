@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-// On retire 'register' et l'appel de fonction d'ici
 
 export interface Recette {
   id: number | string;

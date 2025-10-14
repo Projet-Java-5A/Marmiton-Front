@@ -1,13 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 
-$secondary-color: #00a9a7;
+$secondary-color: #EED7C5;
 $font-cursive: 'Dancing Script', cursive;
-$text-color-placeholder: #a0a0a0;
+$text-color-placeholder: #B36A5E;
 
-.home-page-container {
+.home-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; 
 }
 
 .content-area {
@@ -21,7 +20,7 @@ $text-color-placeholder: #a0a0a0;
 .section-title {
   text-align: center;
   font-family: $font-cursive;
-  color: $secondary-color;
+  color: $text-color-placeholder;
   font-size: 2.8rem;
   margin-bottom: 2.5rem;
 }
@@ -48,16 +47,15 @@ $text-color-placeholder: #a0a0a0;
 
 .recipe-image-container {
   height: 220px;
-  background-color: #f8f8f8; // Fond pour les placeholders
+  background-color: #f8f8f8; 
 
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover; // Assure que l'image remplit l'espace sans se déformer
+    object-fit: cover; 
   }
 }
 
-// --- Placeholder pour les images manquantes ---
 .image-placeholder {
   width: 100%;
   height: 100%;
@@ -74,8 +72,7 @@ $text-color-placeholder: #a0a0a0;
   background-color: $secondary-color;
   padding: 1.2rem;
   text-align: center;
-  margin-top: auto; // Pousse la bannière en bas si la carte s'étire
-
+  margin-top: auto; 
   h3 {
     margin: 0;
     color: white;
@@ -84,14 +81,13 @@ $text-color-placeholder: #a0a0a0;
   }
 }
 
-// --- Ajustements pour les petits écrans (Mobiles) ---
 @media (max-width: 600px) {
   .content-area {
-    padding: 1rem; // Moins de padding sur mobile
+    padding: 1rem; 
   }
 
   .section-title {
-    font-size: 2.2rem; // Titre plus petit
+    font-size: 2.2rem;
   }
 }
 }
