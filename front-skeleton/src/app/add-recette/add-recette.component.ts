@@ -1,8 +1,10 @@
+// Imports nettoyés et organisés
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormArray } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
+// Modules Angular Material
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,10 +13,15 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatIconModule } from '@angular/material/icon';
 import { TextFieldModule } from '@angular/cdk/text-field';
 
-
+// --- Interfaces pour typer les données de l'API ---
 export interface Ingredient {
   id: number;
   name: string;
+}
+
+export interface Ustensile {
+  idUstensile: number;
+  nomUstensile: string;
 }
 
 @Component({
@@ -34,10 +41,10 @@ export interface Ingredient {
   templateUrl: './add-recette.component.html',
   styleUrl: './add-recette.component.scss'
 })
-
 export class AddRecetteComponent implements OnInit {
   recetteForm: FormGroup;
   ingredientsList: Ingredient[] = [];
+  ustensilesList: Ustensile[] = []; // Nouvelle propriété pour les ustensiles
   priceRanges: string[] = ['1-10€', '10-20€', '20-30€', '30-40€', '40-50€', '+50€'];
   stars: number[] = [1, 2, 3, 4, 5];
 
@@ -46,6 +53,7 @@ export class AddRecetteComponent implements OnInit {
       name: ['', Validators.required],
       ingredients: [[], Validators.required],
       quantities: this.fb.array([]),
+      ustensiles: [[]],
       image: [''],
       steps: ['', Validators.required],
       price: ['', Validators.required],
@@ -54,7 +62,9 @@ export class AddRecetteComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // On appelle les deux méthodes au chargement du composant
     this.fetchIngredients();
+    this.fetchUstensiles();
 
     this.recetteForm.get('ingredients')?.valueChanges.subscribe(selectedIngredients => {
       this.updateQuantitiesForm(selectedIngredients);
@@ -68,6 +78,17 @@ export class AddRecetteComponent implements OnInit {
         console.log('Ingrédients chargés :', this.ingredientsList);
       },
       error: (err) => console.error('Erreur lors de la récupération des ingrédients', err)
+    });
+  }
+
+  // Nouvelle méthode pour récupérer les ustensiles
+  fetchUstensiles() {
+    this.http.get<Ustensile[]>('http://localhost:8080/ustensiles').subscribe({
+      next: (data) => {
+        this.ustensilesList = data;
+        console.log('Ustensiles chargés :', this.ustensilesList);
+      },
+      error: (err) => console.error('Erreur lors de la récupération des ustensiles', err)
     });
   }
 

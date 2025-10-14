@@ -36,6 +36,19 @@
         </div>
       </div>
 
+      <!-- NOUVEAU : Champ pour la sélection des ustensiles -->
+      <mat-form-field appearance="fill">
+        <mat-label>Ustensiles nécessaires</mat-label>
+        <mat-select formControlName="ustensiles" multiple>
+          <mat-option *ngFor="let ustensile of ustensilesList" [value]="ustensile">
+            {{ ustensile.nomUstensile }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="recetteForm.get('ustensiles')?.hasError('required')">
+          Au moins un ustensile est requis
+        </mat-error>
+      </mat-form-field>
+
       <!-- Champ Image -->
       <mat-form-field appearance="fill">
         <mat-label>URL de l'image</mat-label>
@@ -90,7 +103,6 @@
     <img *ngIf="recetteForm.get('image')?.value" [src]="recetteForm.get('image')?.value" alt="Aperçu de la recette" class="image-preview">
   </div>
 </div>
-
 <div>
     TODO : Rajouter la possibilité de rajouter des ingrédients pas présents dans la liste
     avec un bouton (le nom et la  catégorie donc GET x) + (Validation admin ?)
