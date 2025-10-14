@@ -16,9 +16,10 @@ import { MatToolbar } from "@angular/material/toolbar";
 import { FooterComponent } from "footer/footer.component"
 import { CarouselRecettesComponent } from './carousel-recettes/carousel-recettes.component';
 import { RouterModule } from '@angular/router';
+import { AdminComponent } from 'admin/admin.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, HomeComponent, FooterComponent, CarouselRecettesComponent],
+  declarations: [AppComponent, NavbarComponent, HomeComponent, FooterComponent, AdminComponent, CarouselRecettesComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -28,8 +29,6 @@ import { RouterModule } from '@angular/router';
     MatIconModule,
     MatButtonModule,
     HttpClientModule,
-    LoginComponent,
-    AddRecetteComponent,
     MatToolbar,
     RouterModule.forRoot([])
   ],

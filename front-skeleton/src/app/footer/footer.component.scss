@@ -28,6 +28,22 @@ $font-cursive: 'Dancing Script', cursive;
   }
 }
 
+.textadmin {
+    padding: 0.9rem 1.8rem;
+    background-color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    color:#B36A5E;
+    font-family: $font-cursive;
+    font-size: 1.3rem;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .home-container {
   padding: 2rem;
   width: 100%;

@@ -5,12 +5,14 @@ import { LoginComponent } from "./login/login.component"
 import { AddRecetteComponent } from "./add-recette/add-recette.component"
 import { RecetteComponent } from "./recette/recette.component"
 import { provideRouter } from '@angular/router';
+import { AdminComponent } from "./admin/admin.component"
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: "login", component: LoginComponent },
   { path: "add-recette", component: AddRecetteComponent },
-  { path: 'recette/:id', component: RecetteComponent }
+  { path: 'recette/:id', component: RecetteComponent },
+  { path: 'admin', component: AdminComponent }
 ]
 
 @NgModule({
