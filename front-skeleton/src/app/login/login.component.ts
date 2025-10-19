@@ -73,7 +73,11 @@ export class LoginComponent {
     if (this.signInForm.invalid) {
       return;
     }
-    this.authService.login(this.signInForm.value).subscribe({
+    const credentials = {
+      mailUser: this.signInForm.value.email,
+      mdpUser: this.signInForm.value.password
+    };
+    this.authService.login(credentials).subscribe({
       // La redirection est déjà gérée dans le service
       error: (err) => {
         console.error('Erreur de connexion', err);
