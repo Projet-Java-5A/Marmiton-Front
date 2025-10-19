@@ -1,0 +1,20 @@
+{
+    "sqltools.connections": [
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": true
+                }
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "ep-still-recipe-abcyvw47-pooler.eu-west-2.aws.neon.tech",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "Marmitax",
+            "database": "neondb",
+            "username": "neondb_owner",
+            "password": "npg_t2yWmckQXz0O"
+        }
+    ]
+}
