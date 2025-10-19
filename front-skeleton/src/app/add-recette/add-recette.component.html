@@ -16,7 +16,7 @@
         <mat-label>Ingrédients</mat-label>
         <mat-select formControlName="ingredients" multiple>
           <mat-option *ngFor="let ingredient of ingredientsList" [value]="ingredient">
-            {{ ingredient.name }}
+            {{ ingredient.nom_ingredient }}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="recetteForm.get('ingredients')?.hasError('required')">
@@ -41,7 +41,7 @@
         <mat-label>Ustensiles nécessaires</mat-label>
         <mat-select formControlName="ustensiles" multiple>
           <mat-option *ngFor="let ustensile of ustensilesList" [value]="ustensile">
-            {{ ustensile.nomUstensile }}
+            {{ ustensile.nomUstensileDto }}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="recetteForm.get('ustensiles')?.hasError('required')">
