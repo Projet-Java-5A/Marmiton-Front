@@ -1,24 +1,24 @@
-// Import des polices et variables
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 
-$secondary-color: #00a9a7;
+$secondary-color: #EED7C5;
 $font-cursive: 'Dancing Script', cursive;
 
 :host {
-  display: block; // Important pour que le composant occupe de l'espace
+  display: block;
   width: 100%;
 }
 
 .recipe-carousel {
-  padding: 1rem 0; // Espace vertical
+  padding: 1rem 0; 
+  margin-left: 2em;
+  margin-right: 2em;
 
   swiper-slide {
-    width: 300px; // Définit la largeur de chaque carte
-    height: auto; // La hauteur s'adapte au contenu
+    width: 50em;
+    height: 40em; 
   }
 }
 
-// Style des cartes (similaire au code précédent pour la cohérence)
 .recipe-card {
   background-color: white;
   border-radius: 15px;
@@ -26,16 +26,20 @@ $font-cursive: 'Dancing Script', cursive;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: 100%; // La carte prend toute la hauteur de la slide
+  height: 100%;
   transition: transform 0.3s ease;
+  margin-left: 4em;
+  margin-right: 4em;
 
   &:hover {
     transform: translateY(-5px);
+    box-shadow: 5px 5px 5px #a0a0a0;
   }
 }
 
 .recipe-image-container {
-  height: 220px;
+  flex-grow: 1;
+  min-height: 0;
   background-color: #f8f8f8;
 
   img {
@@ -61,17 +65,25 @@ $font-cursive: 'Dancing Script', cursive;
   background-color: $secondary-color;
   padding: 1.2rem;
   text-align: center;
+  margin-top: auto;
+  flex-shrink: 0;
 
   h3 {
     margin: 0;
-    color: white;
+    color: #B36A5E;
     font-family: $font-cursive;
     font-size: 1.8rem;
   }
 }
 
-// --- Style des flèches de navigation de Swiper ---
 :host {
   --swiper-navigation-color: #{$secondary-color};
   --swiper-navigation-size: 30px;
+}
+
+.recipe-link {
+  text-decoration: none; 
+  color: inherit;
+  display: block;
+  height: 100%;
 }
