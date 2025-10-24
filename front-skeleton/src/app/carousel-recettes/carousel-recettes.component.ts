@@ -1,10 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-export interface Recette {
-  id: number | string;
-  nom: string;
-  imageUrl?: string;
-}
+import { Recette } from '../recette/recette.service'; // Import de l'interface partagée
 
 @Component({
   selector: 'app-carousel-recettes',
