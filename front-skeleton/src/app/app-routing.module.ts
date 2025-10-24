@@ -3,34 +3,28 @@ import { RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
 import { LoginComponent } from "./login/login.component";
 import { AddRecetteComponent } from "./add-recette/add-recette.component";
-
+import { RecetteComponent } from "./recette/recette.component";
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { roleGuard } from "./guards/role.guard";
 
-// Supposons que vous ayez un composant pour l'administration
-// import { AdminPanelComponent } from './admin-panel/admin-panel.component';
-
 const routes: Routes = [
-  // --- Routes publiques accessibles à tous ---
   { path: "", component: HomeComponent },
   { path: "login", component: LoginComponent },
+  { path: 'recette/:id', component: RecetteComponent },
 
-  // --- Route protégée pour les utilisateurs connectés (User et Admin) ---
   { 
     path: "add-recette", 
     component: AddRecetteComponent,
-    canActivate: [roleGuard], // 2. Appliquez le Guard ici
-    data: { expectedRole: 'User' } // 3. Spécifiez le rôle minimum requis
+    canActivate: [roleGuard],
+    data: { expectedRole: 'User' }
   },
 
-  /*
-  // --- Exemple de route protégée uniquement pour les Admins ---
   { 
     path: "admin", 
-    component: AdminPanelComponent, // Vous devrez créer ce composant
+    component: AdminPanelComponent, 
     canActivate: [roleGuard],
     data: { expectedRole: 'Admin' } 
   },
-  */
 ];
 
 @NgModule({
