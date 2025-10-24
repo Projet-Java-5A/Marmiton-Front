@@ -3,12 +3,23 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-// Interface pour la réponse de l'API (DTO)
+// --- Interfaces pour la réponse de l'API (DTO) ---
+export interface IngredientDto {
+  id: number;
+  nom: string;
+  quantite: string;
+}
+
+export interface UstensileDto {
+  idUstensileDto: number;
+  nomUstensileDto: string;
+}
+
 export interface RecetteDto {
   idRecetteDto: number;
   nomRecetteDto: string;
-  ingredientsDto: any[];
-  ustensilesDto: any[];
+  ingredientsDto: IngredientDto[];
+  ustensilesDto: UstensileDto[];
   dureeRecetteDto: number;
   difficulteRecetteDto: number;
   prixRecetteDto: number;
@@ -16,7 +27,16 @@ export interface RecetteDto {
   contenuRecetteDto: string;
 }
 
-// Interface pour le modèle utilisé par le frontend
+// --- Interfaces pour le modèle utilisé par le frontend ---
+export interface Ingredient {
+  nom: string;
+  quantite: string;
+}
+
+export interface Ustensile {
+  nom: string;
+}
+
 export interface Recette {
   id: number;
   nom: string;
@@ -25,7 +45,8 @@ export interface Recette {
   difficulte: number;
   prix: number;
   contenu: string;
-  // Autres champs si nécessaire
+  ingredients: Ingredient[];
+  ustensiles: Ustensile[];
 }
 
 @Injectable({
@@ -36,26 +57,22 @@ export class RecetteService {
 
   constructor(private http: HttpClient) { }
 
-  // Récupère les recettes depuis l'API et les mappe vers le modèle frontend
   getRecettesFavorites(): Observable<Recette[]> {
     return this.http.get<RecetteDto[]>(this.apiUrl).pipe(
       map(dtos => dtos.map(dto => this.toFrontendModel(dto)))
     );
   }
 
-  // Récupère une recette par son ID (suppose l'existence de /recettes/{id})
   getRecetteById(id: number): Observable<Recette> {
     return this.http.get<RecetteDto>(`${this.apiUrl}/${id}`).pipe(
       map(dto => this.toFrontendModel(dto))
     );
   }
 
-  // Méthode pour ajouter une recette (conservée depuis la branche admin)
   addRecipe(recipeData: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, recipeData);
   }
 
-  // Fonction privée pour convertir le DTO en modèle frontend
   private toFrontendModel(dto: RecetteDto): Recette {
     return {
       id: dto.idRecetteDto,
@@ -64,7 +81,9 @@ export class RecetteService {
       duree: dto.dureeRecetteDto,
       difficulte: dto.difficulteRecetteDto,
       prix: dto.prixRecetteDto,
-      contenu: dto.contenuRecetteDto
+      contenu: dto.contenuRecetteDto,
+      ingredients: dto.ingredientsDto.map(ing => ({ nom: ing.nom, quantite: ing.quantite })),
+      ustensiles: dto.ustensilesDto.map(ust => ({ nom: ust.nomUstensileDto }))
     };
   }
 }
