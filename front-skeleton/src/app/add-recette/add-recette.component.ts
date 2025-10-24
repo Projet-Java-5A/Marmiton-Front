@@ -11,7 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatIconModule } from '@angular/material/icon';
 import { TextFieldModule } from '@angular/cdk/text-field';
-import { RecetteService } from '../services/recette.service';
+import { RecetteService } from '../recette/recette.service';
 import { AuthService } from '../services/auth.service';
 
 export interface Ingredient {

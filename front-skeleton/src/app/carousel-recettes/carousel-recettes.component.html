@@ -1,7 +1,7 @@
 <swiper-container
   slides-per-view="auto"
-  [spaceBetween]="30"
-  [loop]="true"
+  [spaceBetween]="0"
+  [loop]="false"
   [autoplay]="{
     delay: 2500,
     disableOnInteraction: false
@@ -12,20 +12,19 @@
   @for (recette of recettes; track recette.id) {
     <swiper-slide>
       <article class="recipe-card">
-        <div class="recipe-image-container">
+        <div class="recipe-image-container" [routerLink]="['/recette', recette.id]">
           @if (recette.imageUrl) {
-            <img [src]="recette.imageUrl" [alt]="'Photo de ' + recette.nom">
+            <img [src]="recette.imageUrl" [alt]="'Photo de ' + recette.nom">      
           } @else {
             <div class="image-placeholder">
               <span>Photo de {{ recette.nom }}</span>
             </div>
           }
         </div>
-        <div class="recipe-title-banner">
-          <h3>{{ recette.nom }}</h3>
+        <div class="recipe-title-banner">     
+          <h3>{{ recette.nom }}</h3>       
         </div>
       </article>
     </swiper-slide>
   }
-</swiper-container>```
-
+</swiper-container>
