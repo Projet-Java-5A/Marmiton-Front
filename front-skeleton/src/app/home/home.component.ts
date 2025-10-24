@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Recette } from '../carousel-recettes/carousel-recettes.component';
+import { Recette, RecetteService } from '../recette/recette.service'; // Import depuis le service
 
 @Component({
   selector: 'app-home',
@@ -9,44 +9,22 @@ import { Recette } from '../carousel-recettes/carousel-recettes.component';
 export class HomeComponent implements OnInit {
   recettesFavorites: Recette[] = [];
 
-  constructor() { }
+  constructor(private recetteService: RecetteService) { } // Injection du service
 
   ngOnInit(): void {
     this.chargerRecettes();
   }
 
-
   chargerRecettes(): void {
-
-    this.recettesFavorites = [
-      {
-        id: 1,
-        nom: 'Tarte aux framboises',
+    // Appel au service pour récupérer les données de l'API
+    this.recetteService.getRecettesFavorites().subscribe({
+      next: (recettes) => {
+        this.recettesFavorites = recettes;
       },
-      {
-        id: 2,
-        nom: 'Gratin dauphinois',
-      },
-      {
-        id: 3,
-        nom: 'Tarte au thon',
-      },
-      {
-        id: 4,
-        nom: 'Gâteau au chocolat',
-      },
-      {
-        id: 5,
-        nom: 'Crème brûlée',
-      },
-      {
-        id: 6,
-        nom: 'Crème brûlée',
-      },
-      {
-        id: 7,
-        nom: 'Crème archi brûlée',
+      error: (err) => {
+        console.error('Erreur lors de la récupération des recettes', err);
+        // Ici, vous pourriez afficher un message d'erreur à l'utilisateur
       }
-    ];
+    });
   }
 }
