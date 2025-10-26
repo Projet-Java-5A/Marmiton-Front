@@ -1,16 +1,21 @@
 :host {
   display: block;
   font-family: Arial, sans-serif;
-  background-color: #fdfdfd;
+  background-color: #EEE2DF;
 }
 
-$primary-color: #d17a93;
-$secondary-color: #00a9a7;
-$text-color: #008b8b;
+$primary-color: #EEE2DF;
+$secondary-color: #EED7C5;
+$text-color: #B36A5E;
 $font-cursive: 'Dancing Script', cursive;
 
 // --- Header ---
 .main-header {
+  position: fixed; 
+  top: 1em;        
+  left: 1em;       
+  right: 1em;      
+  z-index: 1000;   
   display: flex;
   justify-content: space-between;
   align-items: center;

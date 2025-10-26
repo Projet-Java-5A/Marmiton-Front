@@ -1,27 +1,25 @@
-// Définition des variables de couleur pour une maintenance facile
-$primary-color: #d17a93;
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+$primary-color: #EEE2DF;
+$secondary-color: #EED7C5;
+$font-cursive: 'Dancing Script', cursive;
 
-// --- Style du Footer ---
 .main-footer {
-  // --- Positionnement ---
-  position: fixed; // Clé pour le fixer à l'écran
-  bottom: 1em;     // Marge par rapport au bas de la page
-  left: 1em;       // Marge par rapport à la gauche
-  right: 1em;      // Marge par rapport à la droite
-  z-index: 1000;   // S'assure qu'il reste au-dessus des autres éléments
+  position: fixed; 
+  bottom: 1em;     
+  left: 1em;       
+  right: 1em;      
+  z-index: 1000;   
 
-  // --- Apparence Visuelle ---
   display: flex;
-  justify-content: flex-end; // Aligne l'élément enfant à droite
-  align-items: center;       // Centre l'élément enfant verticalement
+  justify-content: flex-end; 
+  align-items: center;
   height: 70px;
   padding: 1rem 2rem;
   background-color: $primary-color;
   border-radius: 20px;
-  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); // Ombre pour un effet de profondeur
-  margin: 0; // La marge est gérée par les propriétés de positionnement
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); 
+  margin: 0; 
 
-  // --- Style de l'élément blanc à l'intérieur ---
   .footer-button-placeholder {
     width: 120px;
     height: 45px;
@@ -29,28 +27,28 @@ $primary-color: #d17a93;
     border-radius: 30px;
   }
 }
-// Import des polices (si nécessaire)
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 
-$secondary-color: #00a9a7;
-$font-cursive: 'Dancing Script', cursive;
+.textadmin {
+    padding: 0.9rem 1.8rem;
+    background-color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    color:#B36A5E;
+    font-family: $font-cursive;
+    font-size: 1.3rem;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .home-container {
   padding: 2rem;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.section-title {
-  text-align: center;
-  font-family: $font-cursive;
-  color: $secondary-color;
-  font-size: 2.8rem;
   margin-bottom: 1.5rem;
 }
 
-// Média query pour les petits écrans
 @media (max-width: 600px) {
   .home-container {
     padding: 1rem;
