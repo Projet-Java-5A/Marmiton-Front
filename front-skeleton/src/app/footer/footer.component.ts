@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,6 +8,10 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
+
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
 
 }
