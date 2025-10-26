@@ -1,1 +1,24 @@
-<p>admin-panel works!</p>
+<div class="admin-panel-container">
+  <h2>Modération des recettes</h2>
+
+  <div *ngIf="pendingRecettes.length === 0" class="no-recettes">
+    <p>Aucune recette en attente de modération.</p>
+  </div>
+
+  <div *ngIf="pendingRecettes.length > 0" class="recettes-grid">
+    <div *ngFor="let recette of pendingRecettes" class="recette-card">
+      <img [src]="recette.imageUrl" alt="Image de {{recette.nom}}" class="recette-image">
+      <div class="recette-info">
+        <h3>{{ recette.nom }}</h3>
+        <p><strong>Durée :</strong> {{ recette.duree }} minutes</p>
+        <p><strong>Difficulté :</strong> {{ recette.difficulte }} / 5</p>
+        <p><strong>Prix :</strong> {{ recette.prix }} €</p>
+      </div>
+      <div class="recette-actions">
+        <button (click)="approve(recette.id)" class="btn btn-approve">Approuver</button>
+        <button (click)="reject(recette.id)" class="btn btn-reject">Refuser</button>
+        <button (click)="delete(recette.id)" class="btn btn-delete">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
