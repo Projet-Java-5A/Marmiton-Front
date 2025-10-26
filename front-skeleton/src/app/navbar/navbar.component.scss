@@ -10,11 +10,6 @@ $text-color: #B36A5E;
 $font-cursive: 'Dancing Script', cursive;
 
 .main-header {
-  position: fixed; 
-  top: 1em;        
-  left: 1em;       
-  right: 1em;      
-  z-index: 1000;   
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -1,5 +1,9 @@
-.main-content{
-    padding-top: 10em; 
-    padding-bottom: 8em; 
-    min-height: 100vh; 
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main.main-content {
+  flex: 1 0 auto;
 }

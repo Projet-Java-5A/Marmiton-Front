@@ -4,21 +4,13 @@ $secondary-color: #EED7C5;
 $font-cursive: 'Dancing Script', cursive;
 
 .main-footer {
-  position: fixed; 
-  bottom: 1em;     
-  left: 1em;       
-  right: 1em;      
-  z-index: 1000;   
-
   display: flex;
   justify-content: flex-end; 
   align-items: center;
   height: 70px;
   padding: 1rem 2rem;
   background-color: $primary-color;
-  border-radius: 20px;
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); 
-  margin: 0; 
 
   .footer-button-placeholder {
     width: 120px;
