@@ -1,0 +1,41 @@
+<div class="form-container">
+  <h2>Modifier la recette</h2>
+  <form *ngIf="recetteForm" [formGroup]="recetteForm" (ngSubmit)="onSubmit()">
+    
+    <div class="form-group">
+      <label for="nom">Nom de la recette</label>
+      <input id="nom" type="text" formControlName="nom">
+    </div>
+
+    <div class="form-group">
+      <label for="imageUrl">URL de l'image</label>
+      <input id="imageUrl" type="text" formControlName="imageUrl">
+    </div>
+
+    <div class="form-group">
+      <label for="duree">Durée (minutes)</label>
+      <input id="duree" type="number" formControlName="duree">
+    </div>
+
+    <div class="form-group">
+      <label for="difficulte">Difficulté (1-5)</label>
+      <input id="difficulte" type="number" formControlName="difficulte">
+    </div>
+
+    <div class="form-group">
+      <label for="prix">Prix (€)</label>
+      <input id="prix" type="number" formControlName="prix">
+    </div>
+
+    <div class="form-group">
+      <label for="contenu">Instructions</label>
+      <textarea id="contenu" formControlName="contenu" rows="10"></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="recetteForm.invalid">Sauvegarder les modifications</button>
+      <button type="button" (click)="cancel()">Annuler</button>
+    </div>
+
+  </form>
+</div>

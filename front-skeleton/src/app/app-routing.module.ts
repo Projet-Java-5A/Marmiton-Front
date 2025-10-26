@@ -5,6 +5,7 @@ import { LoginComponent } from "./login/login.component";
 import { AddRecetteComponent } from "./add-recette/add-recette.component";
 import { RecetteComponent } from "./recette/recette.component";
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { EditRecetteComponent } from './edit-recette/edit-recette.component';
 import { roleGuard } from "./guards/role.guard";
 
 const routes: Routes = [
@@ -22,6 +23,12 @@ const routes: Routes = [
   { 
     path: "admin", 
     component: AdminPanelComponent, 
+    canActivate: [roleGuard],
+    data: { expectedRole: 'Admin' } 
+  },
+  { 
+    path: "admin/edit-recette/:id", 
+    component: EditRecetteComponent, 
     canActivate: [roleGuard],
     data: { expectedRole: 'Admin' } 
   },

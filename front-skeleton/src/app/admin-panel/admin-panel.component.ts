@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RecetteService, Recette } from '../recette/recette.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-panel',
@@ -13,7 +14,10 @@ export class AdminPanelComponent implements OnInit {
 
   pendingRecettes: Recette[] = [];
 
-  constructor(private recetteService: RecetteService) { }
+  constructor(
+    private recetteService: RecetteService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.loadPendingRecettes();
@@ -31,10 +35,8 @@ export class AdminPanelComponent implements OnInit {
     });
   }
 
-  reject(id: number): void {
-    this.recetteService.updateRecetteStatus(id, 'REJECTED').subscribe(() => {
-      this.pendingRecettes = this.pendingRecettes.filter(r => r.id !== id);
-    });
+  edit(id: number): void {
+    this.router.navigate(['/admin/edit-recette', id]);
   }
 
   delete(id: number): void {
