@@ -28,6 +28,8 @@ $font-cursive: 'Dancing Script', cursive;
   flex-direction: column;
   height: 100%;
   transition: transform 0.3s ease;
+  margin-left: 2em;
+  margin-right: 2em;
 
   &:hover {
     transform: translateY(-5px);

@@ -23,7 +23,8 @@ $text-color-placeholder: #B36A5E;
   font-family: $font-cursive;
   color: $text-color-placeholder;
   font-size: 2.8rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.1rem;
+  margin-top: 1.5rem;
 }
 
 .favorites-grid {
@@ -33,7 +34,7 @@ $text-color-placeholder: #B36A5E;
 
 .recipe-card {
   background-color: white;
-  border-radius: 15px;
+  border-radius: 20px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   display: flex;
@@ -41,7 +42,7 @@ $text-color-placeholder: #B36A5E;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   }
 }
