@@ -99,8 +99,9 @@ export class RecetteService {
     return this.http.put(`${this.apiUrl}/admin/${id}/status`, status, { responseType: 'text' });
   }
 
-  updateRecette(id: number, recipeData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/${id}`, recipeData);
+  updateRecette(id: number, recette: Recette): Observable<any> {
+    const dto = this.toDto(recette);
+    return this.http.put<any>(`${this.apiUrl}/${id}`, dto);
   }
 
   deleteRecette(id: number): Observable<any> {
@@ -108,7 +109,7 @@ export class RecetteService {
   }
 
 
-  // --- Méthode de mapping ---
+  // --- Méthodes de mapping ---
 
   private toFrontendModel(dto: RecetteDto): Recette {
     return {
@@ -121,6 +122,20 @@ export class RecetteService {
       contenu: dto.contenuRecetteDto,
       ingredients: dto.ingredientsDto.map(ing => ({ nom: ing.nom, quantite: ing.quantite })),
       ustensiles: dto.ustensilesDto.map(ust => ({ nom: ust.nomUstensileDto }))
+    };
+  }
+
+  private toDto(recette: Recette): RecetteDto {
+    return {
+      idRecetteDto: recette.id,
+      nomRecetteDto: recette.nom,
+      imageRecetteDto: recette.imageUrl,
+      dureeRecetteDto: recette.duree,
+      difficulteRecetteDto: recette.difficulte,
+      prixRecetteDto: recette.prix,
+      contenuRecetteDto: recette.contenu,
+      ingredientsDto: recette.ingredients.map(ing => ({ id: 0, nom: ing.nom, quantite: ing.quantite })),
+      ustensilesDto: recette.ustensiles.map(ust => ({ idUstensileDto: 0, nomUstensileDto: ust.nom }))
     };
   }
 }
