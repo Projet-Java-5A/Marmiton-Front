@@ -20,6 +20,12 @@ $font-cursive: 'Dancing Script', cursive;
   margin: 1em;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
+  .logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 15%;
+  }
+
   .search-container {
     position: relative;
     flex-grow: 1;
