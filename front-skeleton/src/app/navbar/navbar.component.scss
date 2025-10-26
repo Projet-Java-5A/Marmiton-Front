@@ -1,7 +1,7 @@
 :host {
   display: block;
   font-family: Arial, sans-serif;
-  background-color:#EEE2DF;
+  background-color: #EEE2DF;
 }
 
 $primary-color: #EEE2DF;
@@ -15,7 +15,6 @@ $font-cursive: 'Dancing Script', cursive;
   left: 1em;       
   right: 1em;      
   z-index: 1000;   
-
   display: flex;
   justify-content: space-between;
   align-items: center;
