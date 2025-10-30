@@ -1,0 +1,24 @@
+<div class="search-results-container">
+  <h1 *ngIf="searchTerm">Résultats de la recherche pour : "{{ searchTerm }}"</h1>
+
+  <ng-container *ngIf="results$ | async as recettes; else loading">
+    
+    <div *ngIf="recettes.length === 0" class="no-results">
+      Aucune recette trouvée pour "{{ searchTerm }}".
+    </div>
+
+    <div *ngIf="recettes.length > 0" class="results-grid">
+      <a *ngFor="let recette of recettes" [routerLink]="['/recette', recette.id]" class="recette-card">
+        <img [src]="recette.imageUrl" [alt]="recette.nom" class="recette-image">
+        <div class="recette-info">
+          <h3 class="recette-title">{{ recette.nom }}</h3>
+        </div>
+      </a>
+    </div>
+
+  </ng-container>
+
+  <ng-template #loading>
+    <p class="loading-message">Chargement des résultats...</p>
+  </ng-template>
+</div>
