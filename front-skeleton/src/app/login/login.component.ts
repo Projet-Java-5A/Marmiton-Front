@@ -22,8 +22,8 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  loginForm: FormGroup;
-  signInForm: FormGroup;
+  registerForm: FormGroup; // Renommé pour plus de clarté
+  loginForm: FormGroup;    // Renommé pour plus de clarté
 
   constructor(
     private fb: FormBuilder,
@@ -37,7 +37,7 @@ export class LoginComponent {
     }
 
     // Formulaire de création de compte
-    this.loginForm = this.fb.group({
+    this.registerForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -45,21 +45,30 @@ export class LoginComponent {
     });
 
     // Formulaire de connexion
-    this.signInForm = this.fb.group({
+    this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
   }
 
   // Soumission du formulaire de création de compte
-  onSubmit() {
-    if (this.loginForm.invalid) {
+  onRegister() {
+    if (this.registerForm.invalid) {
       return;
     }
-    this.userService.register(this.loginForm.value).subscribe({
+
+    const formValue = this.registerForm.value;
+    const payload = {
+      prenomUser: formValue.firstName,
+      nomUser: formValue.lastName,
+      mailUser: formValue.email,
+      mdpUser: formValue.password
+    };
+
+    this.userService.register(payload).subscribe({
       next: () => {
         alert('Compte créé avec succès ! Vous pouvez maintenant vous connecter.');
-        this.loginForm.reset();
+        this.registerForm.reset();
       },
       error: (err) => {
         console.error('Erreur lors de la création du compte', err);
@@ -69,13 +78,13 @@ export class LoginComponent {
   }
 
   // Soumission du formulaire de connexion
-  onSignIn() {
-    if (this.signInForm.invalid) {
+  onLogin() {
+    if (this.loginForm.invalid) {
       return;
     }
     const credentials = {
-      mailUser: this.signInForm.value.email,
-      mdpUser: this.signInForm.value.password
+      mailUser: this.loginForm.value.email,
+      mdpUser: this.loginForm.value.password
     };
     this.authService.login(credentials).subscribe({
       // La redirection est déjà gérée dans le service
