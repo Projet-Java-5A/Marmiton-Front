@@ -8,22 +8,16 @@ import { UserDto } from '../models/user.dto';
 })
 export class UserService {
   // Remplacez par l'URL de votre API backend
-  private apiUrl = 'http://localhost:8080/api/users';
+  private apiUrl = 'http://localhost:8080/users';
 
   constructor(private http: HttpClient) { }
 
   /**
    * Crée un nouvel utilisateur
    */
-  register(userData: any): Observable<UserDto> {
-    const userToCreate: Partial<UserDto> = {
-      nomUserDto: userData.lastName,
-      prenomUserDto: userData.firstName,
-      mailUserDto: userData.email,
-      mdpUserDto: userData.password,
-      isAdminDto: false,
-      recettesDto: []
-    };
-    return this.http.post<UserDto>(this.apiUrl, userToCreate);
+  register(userData: any): Observable<any> {
+    // On envoie directement les données préparées par le composant.
+    // On spécifie { responseType: 'text' } car le backend renvoie une réponse vide (non-JSON).
+    return this.http.post(this.apiUrl, userData, { responseType: 'text' });
   }
 }
