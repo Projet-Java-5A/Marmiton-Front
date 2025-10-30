@@ -3,10 +3,15 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-// --- Interfaces pour la réponse de l'API (DTO) ---
+export interface CategorieDto {
+  idCategorieDto: number;
+  nomCategorieDto: string;
+}
+
 export interface IngredientDto {
   id: number;
   nom: string;
+  categorie: CategorieDto;
   quantite: string;
 }
 
@@ -25,15 +30,21 @@ export interface RecetteDto {
   prixRecetteDto: number;
   imageRecetteDto: string;
   contenuRecetteDto: string;
+  approvalStatus: string;
 }
 
 // --- Interfaces pour le modèle utilisé par le frontend ---
+
 export interface Ingredient {
+  id: number;
   nom: string;
   quantite: string;
+  categorie: CategorieDto;
 }
 
+
 export interface Ustensile {
+  idUstensile: number;
   nom: string;
 }
 
@@ -72,7 +83,7 @@ export class RecetteService {
   }
 
   addRecipe(recipeData: any): Observable<any> {
-    return this.http.post(this.apiUrl, recipeData, { responseType: 'text' });
+    return this.http.post<any>(this.apiUrl, recipeData);
   }
 
   searchRecettes(term: string): Observable<Recette[]> {
@@ -84,7 +95,7 @@ export class RecetteService {
       map(dtos => dtos.map(dto => this.toFrontendModel(dto)))
     );
   }
-  
+
   // --- Méthodes d'administration ---
 
   getPendingRecettes(): Observable<Recette[]> {
@@ -111,7 +122,7 @@ export class RecetteService {
 
   updateRecette(id: number, recette: Recette): Observable<any> {
     const dto = this.toDto(recette);
-    return this.http.put<any>(`${this.apiUrl}/${id}`, dto);
+    return this.http.post<any>(`${this.apiUrl}/${id}`, dto);
   }
 
   deleteRecette(id: number): Observable<any> {
@@ -130,8 +141,8 @@ export class RecetteService {
       difficulte: dto.difficulteRecetteDto,
       prix: dto.prixRecetteDto,
       contenu: dto.contenuRecetteDto,
-      ingredients: dto.ingredientsDto.map(ing => ({ nom: ing.nom, quantite: ing.quantite })),
-      ustensiles: dto.ustensilesDto.map(ust => ({ nom: ust.nomUstensileDto }))
+      ingredients: dto.ingredientsDto.map(ing => ({ id: ing.id, nom: ing.nom, quantite: ing.quantite, categorie: ing.categorie })),
+      ustensiles: dto.ustensilesDto.map(ust => ({ idUstensile: ust.idUstensileDto, nom: ust.nomUstensileDto }))
     };
   }
 
@@ -144,8 +155,9 @@ export class RecetteService {
       difficulteRecetteDto: recette.difficulte,
       prixRecetteDto: recette.prix,
       contenuRecetteDto: recette.contenu,
-      ingredientsDto: recette.ingredients.map(ing => ({ id: 0, nom: ing.nom, quantite: ing.quantite })),
-      ustensilesDto: recette.ustensiles.map(ust => ({ idUstensileDto: 0, nomUstensileDto: ust.nom }))
+      ingredientsDto: recette.ingredients.map(ing => ({ id: ing.id, nom: ing.nom, quantite: ing.quantite, categorie: ing.categorie })),
+      ustensilesDto: recette.ustensiles.map(ust => ({ idUstensileDto: ust.idUstensile, nomUstensileDto: ust.nom })),
+      approvalStatus: 'APPROVED' // Or whatever logic you have for this
     };
   }
 }
