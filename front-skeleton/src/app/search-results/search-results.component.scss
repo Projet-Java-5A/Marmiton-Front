@@ -1,18 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+$secondary-color: #EED7C5;
+$text-color: #B36A5E;
+$font-cursive: 'Dancing Script', cursive;
+
 .search-results-container {
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  font-family: Arial, sans-serif;
 
   h1 {
-    color: #333;
+    font-family: $font-cursive;
+    color: $text-color;
+    font-size: 2.5rem;
     margin-bottom: 2rem;
+    text-align: center;
   }
 }
 
 .results-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
 }
 
@@ -22,12 +30,13 @@
   color: inherit;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  background-color: white;
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 5px 5px 5px #a0a0a0;
   }
 
   .recette-image {
@@ -36,14 +45,19 @@
     object-fit: cover;
   }
 
-  .recette-info {
-    padding: 1rem;
-  }
-
-  .recette-title {
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: bold;
+  .recette-info { // Renommé pour correspondre à la structure HTML, mais stylisé comme .recipe-title-banner
+    background-color: $secondary-color;
+    padding: 1.2rem;
+    text-align: center;
+    margin-top: auto;
+    flex-shrink: 0;
+    
+    .recette-title { // Stylisé comme le h3 du carrousel
+      margin: 0;
+      color: $text-color;
+      font-family: $font-cursive;
+      font-size: 1.8rem;
+    }
   }
 }
 
