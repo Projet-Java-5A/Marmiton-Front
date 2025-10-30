@@ -1,7 +1,7 @@
 <div class="form-container">
   <h2>Modifier la recette</h2>
   <form *ngIf="recetteForm" [formGroup]="recetteForm" (ngSubmit)="onSubmit()">
-    
+
     <div class="form-group">
       <label for="nom">Nom de la recette</label>
       <input id="nom" type="text" formControlName="nom">
@@ -18,18 +18,34 @@
     </div>
 
     <div class="form-group">
-      <label for="difficulte">Difficulté (1-5)</label>
-      <input id="difficulte" type="number" formControlName="difficulte">
+      <label for="difficulte">Difficulté</label>
+      <select id="difficulte" formControlName="difficulte">
+        <option *ngFor="let star of stars" [value]="star">{{star}}</option>
+      </select>
     </div>
 
     <div class="form-group">
-      <label for="prix">Prix (€)</label>
-      <input id="prix" type="number" formControlName="prix">
+      <label for="prix">Prix</label>
+      <select id="prix" formControlName="prix">
+        <option *ngFor="let range of priceRanges" [value]="range">{{range}}</option>
+      </select>
     </div>
 
     <div class="form-group">
       <label for="contenu">Instructions</label>
       <textarea id="contenu" formControlName="contenu" rows="10"></textarea>
+    </div>
+
+    <div class="form-group">
+      <h4>Ingrédients</h4>
+      <div formArrayName="ingredients">
+        <div *ngFor="let ingredient of ingredients.controls; let i=index" [formGroupName]="i" style="margin-bottom: 10px;">
+          <input type="text" formControlName="nom" placeholder="Nom de l'ingrédient" style="margin-right: 10px;">
+          <input type="text" formControlName="quantite" placeholder="Quantité" style="margin-right: 10px;">
+          <button type="button" (click)="removeIngredient(i)">Supprimer</button>
+        </div>
+      </div>
+      <button type="button" (click)="addIngredient()">Ajouter un ingrédient</button>
     </div>
 
     <div class="form-actions">
