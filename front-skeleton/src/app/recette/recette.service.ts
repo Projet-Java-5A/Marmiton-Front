@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 // --- Interfaces pour la réponse de l'API (DTO) ---
@@ -75,6 +75,16 @@ export class RecetteService {
     return this.http.post<any>(this.apiUrl, recipeData);
   }
 
+  searchRecettes(term: string): Observable<Recette[]> {
+    if (!term.trim()) {
+      return of([]);
+    }
+    const params = new HttpParams().set('search', term);
+    return this.http.get<RecetteDto[]>(`${this.apiUrl}/search`, { params }).pipe(
+      map(dtos => dtos.map(dto => this.toFrontendModel(dto)))
+    );
+  }
+  
   // --- Méthodes d'administration ---
 
   getPendingRecettes(): Observable<Recette[]> {

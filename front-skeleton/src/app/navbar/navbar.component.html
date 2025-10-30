@@ -9,7 +9,7 @@
 
   <!-- Le conteneur de recherche. Visible par tous. -->
   <div class="search-container">
-    <input type="text" placeholder="Rechercher une recette...">
+    <input type="text" placeholder="Rechercher une recette..." (keyup.enter)="onSearch($event)">
     <i class='bx bx-search search-icon'></i>
   </div>
 

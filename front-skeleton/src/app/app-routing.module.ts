@@ -7,11 +7,13 @@ import { RecetteComponent } from "./recette/recette.component";
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { EditRecetteComponent } from './edit-recette/edit-recette.component';
 import { roleGuard } from "./guards/role.guard";
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: "login", component: LoginComponent },
   { path: 'recette/:id', component: RecetteComponent },
+  { path: 'search', component: SearchResultsComponent }, 
 
   { 
     path: "add-recette", 
