@@ -86,12 +86,11 @@
 }
 
 .steps-text {
-  white-space: pre-wrap; /* Respecte les sauts de ligne et espaces */
+  white-space: pre-wrap; 
   line-height: 1.6;
   text-align: justify;
 }
 
-/* Pour les écrans plus petits */
 @media (max-width: 600px) {
   .columns {
     flex-direction: column;

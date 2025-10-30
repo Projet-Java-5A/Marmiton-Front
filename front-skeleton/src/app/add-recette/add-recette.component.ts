@@ -65,7 +65,7 @@ export class AddRecetteComponent implements OnInit {
       steps: ['', Validators.required],
       price: ['', Validators.required],
       difficulty: [3, Validators.required],
-      dureeRecette: [0] // Champ ajouté
+      dureeRecette: ['', Validators.required] // Champ mis à jour
     });
   }
 
@@ -133,7 +133,7 @@ export class AddRecetteComponent implements OnInit {
 
     const payload = {
       nomRecette: formValue.name,
-      ingredients: formValue.quantities.map((q: any) => ({
+      ingredients: formValue.quantities.map((q: { ingredientId: number; quantity: string; }) => ({
         ingredientId: q.ingredientId,
         quantite: q.quantity
       })),
@@ -142,7 +142,7 @@ export class AddRecetteComponent implements OnInit {
       contenuRecette: formValue.steps,
       prixRecette: parseInt(formValue.price.split('-')[0], 10),
       difficulteRecette: formValue.difficulty,
-      dureeRecette: formValue.dureeRecette, // Ajout de la durée
+      dureeRecette: formValue.dureeRecette,
       utilisateurId: currentUser.idUserDto
     };
 

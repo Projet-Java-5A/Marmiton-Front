@@ -72,7 +72,7 @@ export class RecetteService {
   }
 
   addRecipe(recipeData: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, recipeData);
+    return this.http.post(this.apiUrl, recipeData, { responseType: 'text' });
   }
 
   searchRecettes(term: string): Observable<Recette[]> {
