@@ -4,6 +4,8 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormArray} from
 import {RecetteService, Recette, Ingredient, CategorieDto} from '../recette/recette.service';
 import { CommonModule } from '@angular/common';
 import { filter, map, switchMap } from 'rxjs/operators';
+import { IngredientService } from '../services/ingredient.service';
+import { IngredientList } from '../models/ingredient';
 
 @Component({
   selector: 'app-edit-recette',
@@ -19,12 +21,14 @@ export class EditRecetteComponent implements OnInit {
   recette?: Recette;
   priceRanges: string[] = ['1-10€', '10-20€', '20-30€', '30-40€', '40-50€', '50+€'];
   stars: number[] = [1, 2, 3, 4, 5];
+  allIngredients: IngredientList[] = [];
 
   constructor(
     private fb: FormBuilder,
     private recetteService: RecetteService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private ingredientService: IngredientService
   ) {
     this.recetteForm = this.fb.group({
       nom: ['', Validators.required],
@@ -38,6 +42,10 @@ export class EditRecetteComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.ingredientService.getAllIngredients().subscribe(ingredients => {
+      this.allIngredients = ingredients;
+    });
+
     this.route.paramMap.pipe(
       map(params => params.get('id')),
       filter(id => id !== null),
@@ -90,29 +98,44 @@ export class EditRecetteComponent implements OnInit {
   }
 
   addIngredient(): void {
-    const defaultCategory: CategorieDto = { idCategorieDto: 9, nomCategorieDto: 'Autre' };
-    this.ingredients.push(this.fb.group({
-      id: [0], // 0 for new ingredient
-      nom: ['', Validators.required],
-      quantite: ['', Validators.required],
-      categorie: [defaultCategory]
-    }));
+    if (this.allIngredients.length > 0) {
+      const defaultIngredient = this.allIngredients[0];
+      this.ingredients.push(this.fb.group({
+        id: [defaultIngredient.id_ingredient],
+        nom: [defaultIngredient.nom_ingredient, Validators.required],
+        quantite: ['', Validators.required],
+        categorie: [null] // Will be populated on change
+      }));
+    }
   }
 
   removeIngredient(index: number): void {
     this.ingredients.removeAt(index);
   }
 
+  onIngredientChange(event: any, index: number): void {
+    const selectedIngredientId = event.target.value;
+    const selectedIngredient = this.allIngredients.find(ing => ing.id_ingredient == selectedIngredientId);
+    if (selectedIngredient) {
+      this.ingredients.at(index).patchValue({
+        nom: selectedIngredient.nom_ingredient,
+      });
+    }
+  }
+
   onSubmit(): void {
     if (this.recetteForm.valid && this.recetteId && this.recette) {
       const formValue = this.recetteForm.value;
 
-      const updatedIngredients: Ingredient[] = formValue.ingredients.map((ing: any) => ({
+      const updatedIngredients: Ingredient[] = formValue.ingredients.map((ing: any) => {
+        const selectedIngredient = this.allIngredients.find(allIng => allIng.id_ingredient === ing.id);
+        return {
           id: ing.id,
-          nom: ing.nom,
+          nom: selectedIngredient ? selectedIngredient.nom_ingredient : ing.nom,
           quantite: ing.quantite,
-          categorie: ing.categorie,
-      }));
+          categorie: { idCategorieDto: selectedIngredient ? selectedIngredient.id_categorie : 0, nomCategorieDto: '' },
+        };
+      });
 
       const updatedRecette: Recette = {
         ...this.recette,
