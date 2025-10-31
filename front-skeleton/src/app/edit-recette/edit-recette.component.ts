@@ -142,4 +142,17 @@ export class EditRecetteComponent implements OnInit {
   cancel(): void {
     this.router.navigate(['/admin']);
   }
+
+  approve(): void {
+    if (this.recetteId) {
+      this.recetteService.updateRecetteStatus(this.recetteId, 'APPROVED').subscribe({
+        next: () => {
+          this.router.navigate(['/admin']);
+        },
+        error: (err) => {
+          console.error('Approve failed', err);
+        }
+      });
+    }
+  }
 }
