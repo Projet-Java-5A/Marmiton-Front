@@ -1,5 +1,5 @@
 <header class="main-header">
-  <a href="" class="user-profile-btn"></a>
+  <a *ngIf="!isHomePage" routerLink="/" class="add-recipe-btn">Retour à l'accueil</a>
   <!-- Le logo de votre site, qui ramène à l'accueil. Visible par tous. -->
   <div class="brand">
     <a routerLink="/">
