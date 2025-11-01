@@ -40,9 +40,12 @@
       <h4>Ingrédients</h4>
       <div formArrayName="ingredients">
         <div *ngFor="let ingredient of ingredients.controls; let i=index" [formGroupName]="i" class="ingredient-row">
-          <select formControlName="id" (change)="onIngredientChange($event, i)" class="form-control">
+          
+          <!-- MODIFIÉ : Suppression de l'événement (change) -->
+          <select formControlName="id" class="form-control">
             <option *ngFor="let ing of allIngredients" [value]="ing.id_ingredient">{{ing.nom_ingredient}}</option>
           </select>
+          
           <input type="text" formControlName="quantite" placeholder="Quantité" class="form-control">
           <button type="button" (click)="removeIngredient(i)" class="btn-remove">Supprimer</button>
         </div>
@@ -50,11 +53,22 @@
       <button type="button" (click)="addIngredient()" class="btn-add">Ajouter un ingrédient</button>
     </div>
 
+
     <div class="form-actions">
-      <button type="submit" [disabled]="recetteForm.invalid">Sauvegarder les modifications</button>
-      <button type="button" (click)="approve()" [disabled]="recetteForm.invalid">Approuver</button>
+      <!-- MODIFICATION CI-DESSOUS -->
+      <button type="submit" [disabled]="recetteForm.invalid || recetteForm.pristine">Sauvegarder les modifications</button>
+      <!-- Optionnellement, vous pouvez aussi appliquer cette logique au bouton Approuver si besoin -->
+      <button type="button" (click)="approve()">Approuver</button>
       <button type="button" (click)="cancel()">Annuler</button>
     </div>
-
   </form>
+
+  <!-- AJOUTEZ CE BLOC POUR LE DÉBOGAGE -->
+  <div *ngIf="recetteForm" style="background-color: #f0f0f0; margin-top: 20px; padding: 10px; border: 1px solid #ccc;">
+    <h3>État du formulaire (pour débogage)</h3>
+    <pre>État de validité : {{ recetteForm.status }}</pre> <!-- Doit être VALID -->
+    <pre>État Pristine (intact) : {{ recetteForm.pristine }}</pre> <!-- Doit passer à false après une modif -->
+    <pre>État Dirty (modifié) : {{ recetteForm.dirty }}</pre> <!-- Doit passer à true après une modif -->
+    <pre>Valeurs : {{ recetteForm.value | json }}</pre>
+  </div>
 </div>

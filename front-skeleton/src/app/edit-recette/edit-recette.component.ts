@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormArray} from '@angular/forms';
 import {RecetteService, Recette, Ingredient, CategorieDto} from '../recette/recette.service';
@@ -16,7 +16,7 @@ import { IngredientList } from '../models/ingredient';
 })
 export class EditRecetteComponent implements OnInit {
 
-  recetteForm: FormGroup;
+  recetteForm!: FormGroup;
   recetteId?: number;
   recette?: Recette;
   priceRanges: string[] = ['1-10€', '10-20€', '20-30€', '30-40€', '40-50€', '50+€'];
@@ -28,18 +28,9 @@ export class EditRecetteComponent implements OnInit {
     private recetteService: RecetteService,
     private route: ActivatedRoute,
     private router: Router,
-    private ingredientService: IngredientService
-  ) {
-    this.recetteForm = this.fb.group({
-      nom: ['', Validators.required],
-      imageUrl: ['', Validators.required],
-      duree: [0, [Validators.required, Validators.min(1)]],
-      difficulte: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
-      prix: ['', [Validators.required]],
-      contenu: ['', Validators.required],
-      ingredients: this.fb.array([])
-    });
-  }
+    private ingredientService: IngredientService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.ingredientService.getAllIngredients().subscribe(ingredients => {
@@ -58,23 +49,33 @@ export class EditRecetteComponent implements OnInit {
     ).subscribe(recette => {
       if (recette) {
         this.recette = recette;
-        this.recetteForm.patchValue({
-          nom: recette.nom,
-          imageUrl: recette.imageUrl,
-          duree: recette.duree,
-          difficulte: recette.difficulte,
-          prix: this.mapPriceToRange(recette.prix),
-          contenu: recette.contenu
-        });
-        recette.ingredients.forEach(ingredient => {
-          this.ingredients.push(this.fb.group({
-            id: [ingredient.id],
-            nom: [ingredient.nom, Validators.required],
-            quantite: [ingredient.quantite, Validators.required],
-            categorie: [ingredient.categorie]
-          }));
-        });
+        this.initForm(recette);
       }
+    });
+  }
+
+  initForm(recette: Recette): void {
+    this.recetteForm = this.fb.group({
+      nom: [recette.nom, Validators.required],
+      // LA MODIFICATION EST ICI : Le validateur Validators.required a été supprimé.
+      imageUrl: [recette.imageUrl], 
+      duree: [recette.duree, [Validators.required, Validators.min(1)]],
+      difficulte: [recette.difficulte, [Validators.required, Validators.min(1), Validators.max(5)]],
+      prix: [this.mapPriceToRange(recette.prix), [Validators.required]],
+      contenu: [recette.contenu, Validators.required],
+      ingredients: this.fb.array(
+        recette.ingredients.map(ingredient => this.fb.group({
+          id: [ingredient.id],
+          nom: [ingredient.nom, Validators.required],
+          quantite: [ingredient.quantite, Validators.required],
+          categorie: [ingredient.categorie]
+        }))
+      )
+    });
+
+    // On garde cette partie qui est une bonne pratique pour les cas complexes.
+    this.recetteForm.valueChanges.subscribe(() => {
+      this.cdr.detectChanges();
     });
   }
 
@@ -113,16 +114,16 @@ export class EditRecetteComponent implements OnInit {
   }
 
   onIngredientChange(event: any, index: number): void {
-    const selectedIngredientId = event.target.value;
+    const selectedIngredientId = parseInt(event.target.value, 10);
     const selectedIngredient = this.allIngredients.find(ing => ing.id_ingredient == selectedIngredientId);
     if (selectedIngredient) {
-      this.ingredients.at(index).patchValue({
-        nom: selectedIngredient.nom_ingredient,
-      });
+      const ingredientGroup = this.ingredients.at(index) as FormGroup;
+      ingredientGroup.get('nom')?.setValue(selectedIngredient.nom_ingredient);
     }
   }
 
   onSubmit(): void {
+    // La condition recetteForm.valid fonctionnera désormais correctement
     if (this.recetteForm.valid && this.recetteId && this.recette) {
       const formValue = this.recetteForm.value;
 
