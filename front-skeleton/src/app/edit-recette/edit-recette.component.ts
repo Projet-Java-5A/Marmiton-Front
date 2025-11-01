@@ -52,7 +52,6 @@ export class EditRecetteComponent implements OnInit {
       map(id => parseInt(id!, 10)),
       switchMap(id => {
         this.recetteId = id;
-        // Workaround: Fetch all and find by ID
         return this.recetteService.getAllRecettesAdmin();
       }),
       map(recettes => recettes.find(r => r.id === this.recetteId))
@@ -80,12 +79,12 @@ export class EditRecetteComponent implements OnInit {
   }
 
   mapPriceToRange(price: number): string {
-    if (price <= 10) return '1-10€';
-    if (price <= 20) return '10-20€';
-    if (price <= 30) return '20-30€';
-    if (price <= 40) return '30-40€';
-    if (price <= 50) return '40-50€';
-    return '50+€';
+    if (price >= 1 && price < 10) return '1-10€';
+    if (price >= 10 && price < 20) return '10-20€';
+    if (price >= 20 && price < 30) return '20-30€';
+    if (price >= 30 && price < 40) return '30-40€';
+    if (price >= 40 && price < 50) return '40-50€';
+    return '50+€'; // Pour 50 et plus
   }
 
   mapRangeToPrice(range: string): number {
@@ -104,7 +103,7 @@ export class EditRecetteComponent implements OnInit {
         id: [defaultIngredient.id_ingredient],
         nom: [defaultIngredient.nom_ingredient, Validators.required],
         quantite: ['', Validators.required],
-        categorie: [null] // Will be populated on change
+        categorie: [null]
       }));
     }
   }
@@ -147,7 +146,7 @@ export class EditRecetteComponent implements OnInit {
         prix: this.mapRangeToPrice(formValue.prix),
         contenu: formValue.contenu,
         ingredients: updatedIngredients,
-        ustensiles: this.recette.ustensiles, // Keep original ustensiles
+        ustensiles: this.recette.ustensiles,
       };
 
       this.recetteService.updateRecette(this.recetteId, updatedRecette).subscribe({
@@ -156,7 +155,6 @@ export class EditRecetteComponent implements OnInit {
         },
         error: (err) => {
           console.error('Update failed', err);
-          // Optionally show an error message to the user
         }
       });
     }

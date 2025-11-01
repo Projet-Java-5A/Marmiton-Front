@@ -46,7 +46,7 @@ export class AddRecetteComponent implements OnInit {
   recetteForm: FormGroup;
   ingredientsList: Ingredient[] = [];
   ustensilesList: Ustensile[] = [];
-  priceRanges: string[] = ['1-10€', '10-20€', '20-30€', '30-40€', '40-50€', '+50€'];
+  priceRanges: string[] = ['1-10€', '10-20€', '20-30€', '30-40€', '40-50€', '50+€'];
   stars: number[] = [1, 2, 3, 4, 5];
 
   constructor(
@@ -116,6 +116,11 @@ export class AddRecetteComponent implements OnInit {
     this.recetteForm.get('difficulty')?.setValue(rating);
   }
 
+  mapRangeToPrice(range: string): number {
+    if (range === '50+€') return 50;
+    return parseInt(range.split('-')[0], 10);
+  }
+
   onSubmit() {
     if (!this.recetteForm.valid) {
       alert('Veuillez remplir tous les champs obligatoires.');
@@ -140,7 +145,7 @@ export class AddRecetteComponent implements OnInit {
       ustensilesIds: formValue.ustensiles.map((u: any) => u.idUstensileDto),
       imageRecette: formValue.image,
       contenuRecette: formValue.steps,
-      prixRecette: parseInt(formValue.price.split('-')[0], 10),
+      prixRecette: this.mapRangeToPrice(formValue.price),
       difficulteRecette: formValue.difficulty,
       dureeRecette: formValue.dureeRecette,
       utilisateurId: currentUser.idUserDto
