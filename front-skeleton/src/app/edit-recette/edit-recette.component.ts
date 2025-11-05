@@ -109,6 +109,7 @@ export class EditRecetteComponent implements OnInit {
 
   removeIngredient(index: number): void {
     this.ingredients.removeAt(index);
+    this.recetteForm.markAsDirty();
   }
 
   onIngredientChange(event: any, index: number): void {
