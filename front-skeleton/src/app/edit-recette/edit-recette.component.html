@@ -41,8 +41,7 @@
       <div formArrayName="ingredients">
         <div *ngFor="let ingredient of ingredients.controls; let i=index" [formGroupName]="i" class="ingredient-row">
           
-          <!-- MODIFIÉ : Suppression de l'événement (change) -->
-          <select formControlName="id" class="form-control">
+          <select formControlName="id" class="form-control" (change)="onIngredientChange($event, i)">
             <option *ngFor="let ing of allIngredients" [value]="ing.id_ingredient">{{ing.nom_ingredient}}</option>
             <option [value]="-1">+ Ajouter un nouvel ingrédient</option>
           </select>
