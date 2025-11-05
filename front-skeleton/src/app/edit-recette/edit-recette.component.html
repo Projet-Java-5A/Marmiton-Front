@@ -61,11 +61,4 @@
     </div>
   </form>
 
-  <div *ngIf="recetteForm" style="background-color: #f0f0f0; margin-top: 20px; padding: 10px; border: 1px solid #ccc;">
-    <h3>État du formulaire (pour débogage)</h3>
-    <pre>État de validité : {{ recetteForm.status }}</pre> 
-    <pre>État Pristine (intact) : {{ recetteForm.pristine }}</pre>
-    <pre>État Dirty (modifié) : {{ recetteForm.dirty }}</pre>
-    <pre>Valeurs : {{ recetteForm.value | json }}</pre>
-  </div>
 </div>

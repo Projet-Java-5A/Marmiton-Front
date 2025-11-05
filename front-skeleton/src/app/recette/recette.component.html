@@ -5,10 +5,10 @@
     <mat-card-header>
       <mat-card-title class="recette-title">{{ recette.nom }}</mat-card-title>
       <div class="admin-actions" *ngIf="isAdmin">
-        <button mat-raised-button color="primary" (click)="onEdit()">
+        <button mat-raised-button class="edit-button" (click)="onEdit()">
           <mat-icon>edit</mat-icon> Modifier
         </button>
-        <button mat-raised-button color="warn" (click)="onDelete()">
+        <button mat-raised-button class="delete-button" (click)="onDelete()">
           <mat-icon>delete</mat-icon> Supprimer
         </button>
       </div>
