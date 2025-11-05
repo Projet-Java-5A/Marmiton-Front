@@ -35,8 +35,6 @@ export interface RecetteDto {
   prenomAuteur: string;
 }
 
-// --- Interfaces pour le modèle utilisé par le frontend ---
-
 export interface Ingredient {
   id: number;
   nom: string;
@@ -72,8 +70,6 @@ export class RecetteService {
 
   constructor(private http: HttpClient) { }
 
-  // --- Méthodes publiques (pour les utilisateurs) ---
-
   getRecettesFavorites(): Observable<Recette[]> {
     return this.http.get<RecetteDto[]>(this.apiUrl).pipe(
       map(dtos => dtos.map(dto => this.toFrontendModel(dto)))
@@ -99,8 +95,6 @@ export class RecetteService {
       map(dtos => dtos.map(dto => this.toFrontendModel(dto)))
     );
   }
-
-  // --- Méthodes d'administration ---
 
   getPendingRecettes(): Observable<Recette[]> {
     return this.http.get<RecetteDto[]>(`${this.apiUrl}/admin/pending`).pipe(
@@ -134,9 +128,6 @@ export class RecetteService {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
 
-
-  // --- Méthodes de mapping ---
-
   private toFrontendModel(dto: RecetteDto): Recette {
     return {
       id: dto.idRecetteDto,
@@ -164,7 +155,7 @@ export class RecetteService {
       contenuRecetteDto: recette.contenu,
       ingredientsDto: recette.ingredients.map(ing => ({ id: ing.id, nom: ing.nom, quantite: ing.quantite, categorie: ing.categorie })),
       ustensilesDto: recette.ustensiles.map(ust => ({ idUstensileDto: ust.idUstensile, nomUstensileDto: ust.nom })),
-      approvalStatus: 'APPROVED', // Or whatever logic you have for this
+      approvalStatus: 'APPROVED', 
       nomAuteur: recette.nomAuteur,
       prenomAuteur: recette.prenomAuteur
     };

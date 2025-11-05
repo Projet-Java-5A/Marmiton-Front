@@ -1,55 +1,29 @@
 <header class="main-header">
-  <!-- Le logo de votre site, qui ramène à l'accueil. Visible par tous. -->
   <div class="brand">
     <a routerLink="/">
-      <!-- Mettez votre logo ici, par exemple une image ou du texte -->
       <img src="assets/petitchat.png" alt="Marmitax Logo" class="logo">
     </a>
   </div>
 
-  <!-- Le conteneur de recherche. Visible par tous. -->
   <div class="search-container">
     <input type="text" placeholder="Rechercher une recette..." (keyup.enter)="onSearch($event)">
     <i class='bx bx-search search-icon'></i>
   </div>
 
-  <!-- Les actions, qui changent en fonction du rôle de l'utilisateur -->
   <div class="actions">
-
-    <!-- 
-      On utilise ng-container avec le pipe 'async' pour récupérer l'état de l'utilisateur.
-      - Si 'user' existe (connecté), on affiche le premier bloc.
-      - Sinon (invité), on affiche le bloc dans le 'ng-template #guestActions'.
-    -->
     <ng-container *ngIf="currentUser$ | async as user; else guestActions">
-
-      <!-- *** VUE POUR L'UTILISATEUR CONNECTÉ (USER & ADMIN) *** -->
-
-      <!-- Bouton "Ajouter une recette" -->
       <a routerLink="/add-recette" class="add-recipe-btn">Ajouter une recette</a>
-
-      <!-- Bouton "Clochette" pour l'ADMIN UNIQUEMENT -->
-      <!-- On ajoute une condition *ngIf supplémentaire pour vérifier si l'utilisateur est admin -->
       <a *ngIf="user.isAdminDto" routerLink="/admin/notifications" class="admin-bell-btn">
-        <i class='bx bxs-bell'></i> <!-- Exemple avec une icône de cloche pleine -->
+        <i class='bx bxs-bell'></i> 
       </a>
       
-      <!-- Bouton de DÉCONNEXION -->
       <button (click)="logout()" class="user-profile-btn">
         <i class='bx bx-log-out'></i> Déconnexion
       </button>
 
     </ng-container>
-
-    <!-- 
-      Ce template est utilisé si la condition *ngIf ci-dessus est fausse 
-      (c'est-à-dire que l'utilisateur n'est pas connecté)
-    -->
     <ng-template #guestActions>
 
-      <!-- *** VUE POUR L'INVITÉ (GUEST) *** -->
-
-      <!-- Bouton de CONNEXION -->
       <a routerLink="/login" class="user-profile-btn">
         <i class='bx bx-user'></i> Connexion
       </a>

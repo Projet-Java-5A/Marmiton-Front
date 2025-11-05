@@ -1,4 +1,3 @@
-// Imports nettoyés et organisés
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormArray, FormsModule } from '@angular/forms';
@@ -50,7 +49,6 @@ export class AddRecetteComponent implements OnInit {
   ustensilesList: Ustensile[] = [];
   priceRanges: string[] = ['1-10€', '10-20€', '20-30€', '30-40€', '40-50€', '50+€'];
   stars: number[] = [1, 2, 3, 4, 5];
-  // UI for creating a new ingredient inline
   showAddIngredientField = false;
   newIngredientName = '';
 
@@ -71,7 +69,7 @@ export class AddRecetteComponent implements OnInit {
       steps: ['', Validators.required],
       price: ['', Validators.required],
       difficulty: [3, Validators.required],
-      dureeRecette: ['', Validators.required] // Champ mis à jour
+      dureeRecette: ['', Validators.required] 
     });
   }
 
@@ -103,9 +101,7 @@ export class AddRecetteComponent implements OnInit {
     const payload: any = { nomIngredient: this.newIngredientName };
     this.ingredientService.createIngredient(payload).subscribe({
       next: (created) => {
-        // add to list and select it
         this.ingredientsList.push({ id_ingredient: created.id_ingredient, nom_ingredient: created.nom_ingredient, id_categorie: created.id_categorie });
-        // Try to select the created ingredient in the form
         const current = this.recetteForm.get('ingredients')?.value || [];
         this.recetteForm.get('ingredients')?.setValue([...current, { id_ingredient: created.id_ingredient, nom_ingredient: created.nom_ingredient, id_categorie: created.id_categorie }]);
         this.showAddIngredientField = false;
@@ -137,11 +133,8 @@ export class AddRecetteComponent implements OnInit {
     const selectedIngredientIds: number[] = selectedIngredients
       .map(i => {
         if (i == null) return null;
-        // if the select returns an id (number)
         if (typeof i === 'number') return i;
-        // if the item is an object with id_ingredient
         if (i.id_ingredient != null) return i.id_ingredient;
-        // fallback for different shapes
         if (i.id != null) return i.id;
         return null;
       })

@@ -9,21 +9,19 @@ import { Recette, RecetteService } from '../recette/recette.service'; // Import 
 export class HomeComponent implements OnInit {
   recettesFavorites: Recette[] = [];
 
-  constructor(private recetteService: RecetteService) { } // Injection du service
+  constructor(private recetteService: RecetteService) { }
 
   ngOnInit(): void {
     this.chargerRecettes();
   }
 
   chargerRecettes(): void {
-    // Appel au service pour récupérer les données de l'API
     this.recetteService.getRecettesFavorites().subscribe({
       next: (recettes) => {
         this.recettesFavorites = recettes;
       },
       error: (err) => {
         console.error('Erreur lors de la récupération des recettes', err);
-        // Ici, vous pourriez afficher un message d'erreur à l'utilisateur
       }
     });
   }

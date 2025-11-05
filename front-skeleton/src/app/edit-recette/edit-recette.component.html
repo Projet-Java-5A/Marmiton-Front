@@ -55,20 +55,17 @@
 
 
     <div class="form-actions">
-      <!-- MODIFICATION CI-DESSOUS -->
       <button type="submit" [disabled]="recetteForm.invalid || recetteForm.pristine">Sauvegarder les modifications</button>
-      <!-- Optionnellement, vous pouvez aussi appliquer cette logique au bouton Approuver si besoin -->
       <button type="button" (click)="approve()">Approuver</button>
       <button type="button" (click)="cancel()">Annuler</button>
     </div>
   </form>
 
-  <!-- AJOUTEZ CE BLOC POUR LE DÉBOGAGE -->
   <div *ngIf="recetteForm" style="background-color: #f0f0f0; margin-top: 20px; padding: 10px; border: 1px solid #ccc;">
     <h3>État du formulaire (pour débogage)</h3>
-    <pre>État de validité : {{ recetteForm.status }}</pre> <!-- Doit être VALID -->
-    <pre>État Pristine (intact) : {{ recetteForm.pristine }}</pre> <!-- Doit passer à false après une modif -->
-    <pre>État Dirty (modifié) : {{ recetteForm.dirty }}</pre> <!-- Doit passer à true après une modif -->
+    <pre>État de validité : {{ recetteForm.status }}</pre> 
+    <pre>État Pristine (intact) : {{ recetteForm.pristine }}</pre>
+    <pre>État Dirty (modifié) : {{ recetteForm.dirty }}</pre>
     <pre>Valeurs : {{ recetteForm.value | json }}</pre>
   </div>
 </div>

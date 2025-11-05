@@ -22,8 +22,8 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  registerForm: FormGroup; // Renommé pour plus de clarté
-  loginForm: FormGroup;    // Renommé pour plus de clarté
+  registerForm: FormGroup;
+  loginForm: FormGroup; 
 
   constructor(
     private fb: FormBuilder,
@@ -31,12 +31,10 @@ export class LoginComponent {
     private userService: UserService,
     private router: Router
   ) {
-    // Si l'utilisateur est déjà connecté, le rediriger vers l'accueil
     if (this.authService.currentUserValue) {
       this.router.navigate(['/']);
     }
 
-    // Formulaire de création de compte
     this.registerForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -44,14 +42,12 @@ export class LoginComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
-    // Formulaire de connexion
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
   }
 
-  // Soumission du formulaire de création de compte
   onRegister() {
     if (this.registerForm.invalid) {
       return;
@@ -77,7 +73,6 @@ export class LoginComponent {
     });
   }
 
-  // Soumission du formulaire de connexion
   onLogin() {
     if (this.loginForm.invalid) {
       return;
@@ -87,7 +82,6 @@ export class LoginComponent {
       mdpUser: this.loginForm.value.password
     };
     this.authService.login(credentials).subscribe({
-      // La redirection est déjà gérée dans le service
       error: (err) => {
         console.error('Erreur de connexion', err);
         alert('Email ou mot de passe incorrect.');

@@ -18,7 +18,6 @@
           <mat-option *ngFor="let ingredient of ingredientsList" [value]="ingredient">
             {{ ingredient.nom_ingredient }}
           </mat-option>
-          <!-- Option pour ajouter un nouvel ingrédient -->
           <mat-option (click)="$event.stopPropagation(); openAddIngredient();" class="add-ingredient-option">
             <span class="add-option">+ Ajouter un nouvel ingrédient</span>
           </mat-option>
@@ -28,7 +27,6 @@
         </mat-error>
       </mat-form-field>
 
-      <!-- Formulaire inline pour créer un nouvel ingrédient (sans catégorie) -->
       <div *ngIf="showAddIngredientField" class="inline-add-ingredient">
         <mat-form-field appearance="fill">
           <mat-label>Nom de l'ingrédient</mat-label>
@@ -38,7 +36,6 @@
         <button mat-button type="button" (click)="showAddIngredientField=false">Annuler</button>
       </div>
 
-      <!-- Section pour les quantités -->
       <div *ngIf="quantitiesFormArray.controls.length > 0" class="quantities-section" formArrayName="quantities">
         <h4>Quantités</h4>
         <div *ngFor="let quantityGroup of quantitiesFormArray.controls; let i = index" [formGroupName]="i" class="quantity-item">
@@ -50,7 +47,6 @@
         </div>
       </div>
 
-      <!-- NOUVEAU : Champ pour la sélection des ustensiles -->
       <mat-form-field appearance="fill">
         <mat-label>Ustensiles nécessaires</mat-label>
         <mat-select formControlName="ustensiles" multiple>
@@ -63,13 +59,11 @@
         </mat-error>
       </mat-form-field>
 
-      <!-- Champ Image -->
       <mat-form-field appearance="fill">
         <mat-label>URL de l'image</mat-label>
         <input matInput formControlName="image">
       </mat-form-field>
 
-      <!-- Textarea extensible -->
       <mat-form-field appearance="fill">
         <mat-label>Étapes de la recette</mat-label>
         <textarea matInput 
@@ -84,7 +78,6 @@
         </mat-error>
       </mat-form-field>
 
-      <!-- Champ pour la durée -->
       <mat-form-field appearance="fill">
         <mat-label>Durée de la recette (en minutes)</mat-label>
         <input matInput type="number" formControlName="dureeRecette" required>
@@ -93,7 +86,6 @@
         </mat-error>
       </mat-form-field>
 
-      <!-- Sélecteur de gamme de prix -->
       <mat-form-field appearance="fill">
         <mat-label>Estimation du prix</mat-label>
         <mat-select formControlName="price" required>
@@ -104,7 +96,6 @@
         </mat-error>
       </mat-form-field>
 
-      <!-- Sélecteur de difficulté par étoiles -->
       <div class="difficulty-container">
         <label id="difficulty-label">Difficulté:</label>
         <div class="star-rating">
@@ -120,7 +111,6 @@
     </form>
   </div>
 
-  <!-- Print de l'image -->
   <div class="preview-container">
     <h4>Aperçu de l'image</h4>
     <img *ngIf="recetteForm.get('image')?.value" [src]="recetteForm.get('image')?.value" alt="Aperçu de la recette" class="image-preview">

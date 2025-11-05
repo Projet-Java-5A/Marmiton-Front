@@ -57,7 +57,6 @@ export class EditRecetteComponent implements OnInit {
   initForm(recette: Recette): void {
     this.recetteForm = this.fb.group({
       nom: [recette.nom, Validators.required],
-      // LA MODIFICATION EST ICI : Le validateur Validators.required a été supprimé.
       imageUrl: [recette.imageUrl], 
       duree: [recette.duree, [Validators.required, Validators.min(1)]],
       difficulte: [recette.difficulte, [Validators.required, Validators.min(1), Validators.max(5)]],
@@ -73,7 +72,6 @@ export class EditRecetteComponent implements OnInit {
       )
     });
 
-    // On garde cette partie qui est une bonne pratique pour les cas complexes.
     this.recetteForm.valueChanges.subscribe(() => {
       this.cdr.detectChanges();
     });
@@ -85,7 +83,7 @@ export class EditRecetteComponent implements OnInit {
     if (price >= 20 && price < 30) return '20-30€';
     if (price >= 30 && price < 40) return '30-40€';
     if (price >= 40 && price < 50) return '40-50€';
-    return '50+€'; // Pour 50 et plus
+    return '50+€'; 
   }
 
   mapRangeToPrice(range: string): number {
@@ -115,13 +113,11 @@ export class EditRecetteComponent implements OnInit {
 
   onIngredientChange(event: any, index: number): void {
     const selectedIngredientId = parseInt(event.target.value, 10);
-    // If user selected the special value -1, ask for a new ingredient name and create it
     if (selectedIngredientId === -1) {
       const name = window.prompt('Nom du nouvel ingrédient :');
       if (!name) return;
       this.ingredientService.createIngredient({ nomIngredient: name }).subscribe({
         next: (created) => {
-          // push new ingredient in the list and set the form control
           this.allIngredients.push(created);
           const ingredientGroup = this.ingredients.at(index) as FormGroup;
           ingredientGroup.get('id')?.setValue(created.id_ingredient);
@@ -143,7 +139,6 @@ export class EditRecetteComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // La condition recetteForm.valid fonctionnera désormais correctement
     if (this.recetteForm.valid && this.recetteId && this.recette) {
       const formValue = this.recetteForm.value;
 

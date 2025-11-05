@@ -4,6 +4,14 @@
     
     <mat-card-header>
       <mat-card-title class="recette-title">{{ recette.nom }}</mat-card-title>
+      <div class="admin-actions" *ngIf="isAdmin">
+        <button mat-raised-button color="primary" (click)="onEdit()">
+          <mat-icon>edit</mat-icon> Modifier
+        </button>
+        <button mat-raised-button color="warn" (click)="onDelete()">
+          <mat-icon>delete</mat-icon> Supprimer
+        </button>
+      </div>
     </mat-card-header>
 
     <div class="recette-image-container">
