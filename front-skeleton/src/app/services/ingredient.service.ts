@@ -14,4 +14,8 @@ export class IngredientService {
   getAllIngredients(): Observable<IngredientList[]> {
     return this.http.get<IngredientList[]>(this.apiUrl);
   }
+
+  createIngredient(payload: { nomIngredient: string; idCategorie?: number }): Observable<IngredientList> {
+    return this.http.post<IngredientList>(this.apiUrl, payload);
+  }
 }

@@ -18,11 +18,25 @@
           <mat-option *ngFor="let ingredient of ingredientsList" [value]="ingredient">
             {{ ingredient.nom_ingredient }}
           </mat-option>
+          <!-- Option pour ajouter un nouvel ingrédient -->
+          <mat-option (click)="$event.stopPropagation(); openAddIngredient();" class="add-ingredient-option">
+            <span class="add-option">+ Ajouter un nouvel ingrédient</span>
+          </mat-option>
         </mat-select>
         <mat-error *ngIf="recetteForm.get('ingredients')?.hasError('required')">
           Au moins un ingrédient est requis
         </mat-error>
       </mat-form-field>
+
+      <!-- Formulaire inline pour créer un nouvel ingrédient (sans catégorie) -->
+      <div *ngIf="showAddIngredientField" class="inline-add-ingredient">
+        <mat-form-field appearance="fill">
+          <mat-label>Nom de l'ingrédient</mat-label>
+          <input matInput [(ngModel)]="newIngredientName" [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+        <button mat-stroked-button type="button" (click)="createIngredient()">Créer</button>
+        <button mat-button type="button" (click)="showAddIngredientField=false">Annuler</button>
+      </div>
 
       <!-- Section pour les quantités -->
       <div *ngIf="quantitiesFormArray.controls.length > 0" class="quantities-section" formArrayName="quantities">

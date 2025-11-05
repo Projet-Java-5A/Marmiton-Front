@@ -44,6 +44,7 @@
           <!-- MODIFIÉ : Suppression de l'événement (change) -->
           <select formControlName="id" class="form-control">
             <option *ngFor="let ing of allIngredients" [value]="ing.id_ingredient">{{ing.nom_ingredient}}</option>
+            <option [value]="-1">+ Ajouter un nouvel ingrédient</option>
           </select>
           
           <input type="text" formControlName="quantite" placeholder="Quantité" class="form-control">

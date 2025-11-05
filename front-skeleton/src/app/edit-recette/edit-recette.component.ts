@@ -115,6 +115,26 @@ export class EditRecetteComponent implements OnInit {
 
   onIngredientChange(event: any, index: number): void {
     const selectedIngredientId = parseInt(event.target.value, 10);
+    // If user selected the special value -1, ask for a new ingredient name and create it
+    if (selectedIngredientId === -1) {
+      const name = window.prompt('Nom du nouvel ingrédient :');
+      if (!name) return;
+      this.ingredientService.createIngredient({ nomIngredient: name }).subscribe({
+        next: (created) => {
+          // push new ingredient in the list and set the form control
+          this.allIngredients.push(created);
+          const ingredientGroup = this.ingredients.at(index) as FormGroup;
+          ingredientGroup.get('id')?.setValue(created.id_ingredient);
+          ingredientGroup.get('nom')?.setValue(created.nom_ingredient);
+        },
+        error: (err) => {
+          console.error('Erreur création ingrédient', err);
+          alert('Impossible de créer l\'ingrédient');
+        }
+      });
+      return;
+    }
+
     const selectedIngredient = this.allIngredients.find(ing => ing.id_ingredient == selectedIngredientId);
     if (selectedIngredient) {
       const ingredientGroup = this.ingredients.at(index) as FormGroup;
