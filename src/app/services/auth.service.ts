@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { UserDto } from '../models/user.dto';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080'; 
+  private apiUrl = environment.apiUrl + '/users';
 
   // BehaviorSubject pour stocker l'utilisateur courant et notifier les changements
   private currentUserSubject = new BehaviorSubject<UserDto | null>(this.getUserFromStorage());
@@ -18,7 +19,7 @@ export class AuthService {
 
   login(credentials: { mailUser: string, mdpUser: string }): Observable<UserDto> {
     // L'endpoint '/login' doit retourner les informations de l'utilisateur en cas de succès
-    return this.http.post<UserDto>(`${this.apiUrl}/users/login`, credentials).pipe(
+    return this.http.post<UserDto>(`${this.apiUrl}/login`, credentials).pipe(
       tap(user => {
         // Sauvegarder l'utilisateur dans le localStorage pour la persistance
         localStorage.setItem('currentUser', JSON.stringify(user));

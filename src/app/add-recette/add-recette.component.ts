@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { RecetteService } from '../recette/recette.service';
 import { AuthService } from '../services/auth.service';
+import { environment } from '../../environments/environment';
 
 export interface Ingredient {
   id_ingredient: number;
@@ -79,14 +80,18 @@ export class AddRecetteComponent implements OnInit {
   }
 
   fetchIngredients() {
-    this.http.get<Ingredient[]>('http://localhost:8080/ingredients').subscribe({
+    const apiUrl = environment.apiUrl;
+
+    this.http.get<Ingredient[]>(apiUrl+'/ingredients').subscribe({
       next: (data) => { this.ingredientsList = data; },
       error: (err) => console.error('Erreur ingrédients', err)
     });
   }
 
   fetchUstensiles() {
-    this.http.get<Ustensile[]>('http://localhost:8080/ustensiles').subscribe({
+  const apiUrl = environment.apiUrl;
+
+    this.http.get<Ustensile[]>(apiUrl+'/ustensiles').subscribe({
       next: (data) => { this.ustensilesList = data; },
       error: (err) => console.error('Erreur ustensiles', err)
     });

@@ -1,3 +1,4 @@
+import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -64,7 +65,7 @@ export interface Recette {
   providedIn: 'root'
 })
 export class RecetteService {
-  private apiUrl = 'http://localhost:8080/recettes';
+  private apiUrl = environment.apiUrl + '/recettes';
 
   constructor(private http: HttpClient) { }
 
