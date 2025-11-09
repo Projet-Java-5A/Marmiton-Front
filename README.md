@@ -2,16 +2,20 @@
 
 ## Les installations nécessaire
 
-- Node JS : <https://nodejs.org/en/download>
-- Angular : `npm install -g @angular/cli`
+- Node 22
 
-## Avant de lancer le projet
+## Pour lancer le projet sans docker principal
 
-Lancer `npm i`
+Dans le fichier `Marmiton\Marmiton-Front\src\environments\environment.ts` changer le `api.url` en décomentant les lignes indiqués.
 
-## Pour lancer le projet
+Lancer dans le terminal :
 
-Lancer `npm run start` et se rendre sur `http://localhost:4200/`
+```bash
+npm i
+npm run start
+```
+
+et se rendre sur `http://localhost:4200/`
 
 ## Connexion
 
