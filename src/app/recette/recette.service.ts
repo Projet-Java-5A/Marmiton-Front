@@ -118,12 +118,13 @@ export class RecetteService {
   }
 
   updateRecetteStatus(id: number, status: 'APPROVED' | 'REJECTED'): Observable<any> {
-    return this.http.put(`${this.apiUrl}/admin/${id}/status`, status, { responseType: 'text' });
+    const body = { status: status };
+    return this.http.put(`${this.apiUrl}/admin/${id}/status`, body);
   }
 
   updateRecette(id: number, recette: Recette): Observable<any> {
     const dto = this.toDto(recette);
-    return this.http.post<any>(`${this.apiUrl}/${id}`, dto);
+    return this.http.put<any>(`${this.apiUrl}/${id}`, dto);
   }
 
   deleteRecette(id: number): Observable<any> {
