@@ -122,7 +122,7 @@ export class RecetteService {
 
   updateRecette(id: number, recette: Recette): Observable<any> {
     const dto = this.toDto(recette);
-    return this.http.post<any>(`${this.apiUrl}/${id}`, dto);
+    return this.http.put<any>(`${this.apiUrl}/${id}`, dto);
   }
 
   deleteRecette(id: number): Observable<any> {

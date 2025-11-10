@@ -18,7 +18,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login(credentials: { mailUser: string, mdpUser: string }): Observable<UserDto> {
-    return this.http.post<UserDto>(`${this.apiUrl}/users/login`, credentials).pipe(
+    return this.http.post<UserDto>(`${this.apiUrl}/login`, credentials).pipe(
       tap(user => {
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
