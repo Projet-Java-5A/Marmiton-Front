@@ -26,11 +26,11 @@ On peut consulter les recettes.
 ### User
 
 On peut consulter et créer des recettes.
-On peut modifier et supprimer ses recettes.
 
-### Admnin
+### Admin
 
 On peut consulter, créer et supprimer des recettes
+On peut modifier les recettes également
 On a accès à la page admin où on peut valider les recettes en attente
 Pour se connecter en tant que Admin, utilisez :
 
