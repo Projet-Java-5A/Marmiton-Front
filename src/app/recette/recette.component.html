@@ -4,6 +4,14 @@
     
     <mat-card-header>
       <mat-card-title class="recette-title">{{ recette.nom }}</mat-card-title>
+      <div class="admin-actions" *ngIf="isAdmin">
+        <button mat-raised-button class="edit-button" (click)="onEdit()">
+          <mat-icon>edit</mat-icon> Modifier
+        </button>
+        <button mat-raised-button class="delete-button" (click)="onDelete()">
+          <mat-icon>delete</mat-icon> Supprimer
+        </button>
+      </div>
     </mat-card-header>
 
     <div class="recette-image-container">
@@ -50,6 +58,10 @@
       <div class="steps-section">
         <h3>Préparation</h3>
         <p class="steps-text">{{ recette.contenu }}</p>
+      </div>
+
+      <div class="author-section">
+        <p>Proposé par : {{ recette.prenomAuteur }} {{ recette.nomAuteur }}</p>
       </div>
 
     </mat-card-content>

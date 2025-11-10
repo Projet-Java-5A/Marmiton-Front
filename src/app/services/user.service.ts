@@ -8,17 +8,11 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  // Remplacez par l'URL de votre API backend
   private apiUrl = environment.apiUrl +'/users';
 
   constructor(private http: HttpClient) { }
 
-  /**
-   * Crée un nouvel utilisateur
-   */
   register(userData: any): Observable<any> {
-    // On envoie directement les données préparées par le composant.
-    // On spécifie { responseType: 'text' } car le backend renvoie une réponse vide (non-JSON).
     return this.http.post(this.apiUrl, userData, { responseType: 'text' });
   }
 }

@@ -39,19 +39,26 @@
     <div class="form-group">
       <h4>Ingrédients</h4>
       <div formArrayName="ingredients">
-        <div *ngFor="let ingredient of ingredients.controls; let i=index" [formGroupName]="i" style="margin-bottom: 10px;">
-          <input type="text" formControlName="nom" placeholder="Nom de l'ingrédient" style="margin-right: 10px;">
-          <input type="text" formControlName="quantite" placeholder="Quantité" style="margin-right: 10px;">
-          <button type="button" (click)="removeIngredient(i)">Supprimer</button>
+        <div *ngFor="let ingredient of ingredients.controls; let i=index" [formGroupName]="i" class="ingredient-row">
+          
+          <select formControlName="id" class="form-control" (change)="onIngredientChange($event, i)">
+            <option *ngFor="let ing of allIngredients" [value]="ing.id_ingredient">{{ing.nom_ingredient}}</option>
+            <option [value]="-1">+ Ajouter un nouvel ingrédient</option>
+          </select>
+          
+          <input type="text" formControlName="quantite" placeholder="Quantité" class="form-control">
+          <button type="button" (click)="removeIngredient(i)" class="btn-remove">Supprimer</button>
         </div>
       </div>
-      <button type="button" (click)="addIngredient()">Ajouter un ingrédient</button>
+      <button type="button" (click)="addIngredient()" class="btn-add">Ajouter un ingrédient</button>
     </div>
+
 
     <div class="form-actions">
-      <button type="submit" [disabled]="recetteForm.invalid">Sauvegarder les modifications</button>
+      <button type="submit" [disabled]="recetteForm.invalid || recetteForm.pristine">Sauvegarder les modifications</button>
+      <button type="button" (click)="approve()">Approuver</button>
       <button type="button" (click)="cancel()">Annuler</button>
     </div>
-
   </form>
+
 </div>

@@ -32,9 +32,9 @@ export interface RecetteDto {
   imageRecetteDto: string;
   contenuRecetteDto: string;
   approvalStatus: string;
+  nomAuteur: string;
+  prenomAuteur: string;
 }
-
-// --- Interfaces pour le modèle utilisé par le frontend ---
 
 export interface Ingredient {
   id: number;
@@ -59,6 +59,8 @@ export interface Recette {
   contenu: string;
   ingredients: Ingredient[];
   ustensiles: Ustensile[];
+  nomAuteur: string;
+  prenomAuteur: string;
 }
 
 @Injectable({
@@ -68,8 +70,6 @@ export class RecetteService {
   private apiUrl = environment.apiUrl + '/recettes';
 
   constructor(private http: HttpClient) { }
-
-  // --- Méthodes publiques (pour les utilisateurs) ---
 
   getRecettesFavorites(): Observable<Recette[]> {
     return this.http.get<RecetteDto[]>(this.apiUrl).pipe(
@@ -97,8 +97,6 @@ export class RecetteService {
     );
   }
 
-  // --- Méthodes d'administration ---
-
   getPendingRecettes(): Observable<Recette[]> {
     return this.http.get<RecetteDto[]>(`${this.apiUrl}/admin/pending`).pipe(
       map(dtos => dtos.map(dto => this.toFrontendModel(dto)))
@@ -118,21 +116,18 @@ export class RecetteService {
   }
 
   updateRecetteStatus(id: number, status: 'APPROVED' | 'REJECTED'): Observable<any> {
-    const body = { status: status };
-    return this.http.put(`${this.apiUrl}/admin/${id}/status`, body);
+    const statusObject = { status: status };
+    return this.http.put(`${this.apiUrl}/admin/${id}/status`, statusObject, { responseType: 'text' });
   }
 
   updateRecette(id: number, recette: Recette): Observable<any> {
     const dto = this.toDto(recette);
-    return this.http.put<any>(`${this.apiUrl}/${id}`, dto);
+    return this.http.post<any>(`${this.apiUrl}/${id}`, dto);
   }
 
   deleteRecette(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
-
-
-  // --- Méthodes de mapping ---
 
   private toFrontendModel(dto: RecetteDto): Recette {
     return {
@@ -144,7 +139,9 @@ export class RecetteService {
       prix: dto.prixRecetteDto,
       contenu: dto.contenuRecetteDto,
       ingredients: dto.ingredientsDto.map(ing => ({ id: ing.id, nom: ing.nom, quantite: ing.quantite, categorie: ing.categorie })),
-      ustensiles: dto.ustensilesDto.map(ust => ({ idUstensile: ust.idUstensileDto, nom: ust.nomUstensileDto }))
+      ustensiles: dto.ustensilesDto.map(ust => ({ idUstensile: ust.idUstensileDto, nom: ust.nomUstensileDto })),
+      nomAuteur: dto.nomAuteur,
+      prenomAuteur: dto.prenomAuteur
     };
   }
 
@@ -159,7 +156,9 @@ export class RecetteService {
       contenuRecetteDto: recette.contenu,
       ingredientsDto: recette.ingredients.map(ing => ({ id: ing.id, nom: ing.nom, quantite: ing.quantite, categorie: ing.categorie })),
       ustensilesDto: recette.ustensiles.map(ust => ({ idUstensileDto: ust.idUstensile, nomUstensileDto: ust.nom })),
-      approvalStatus: 'APPROVED' // Or whatever logic you have for this
+      approvalStatus: 'APPROVED', 
+      nomAuteur: recette.nomAuteur,
+      prenomAuteur: recette.prenomAuteur
     };
   }
 }

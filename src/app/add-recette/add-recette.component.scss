@@ -1,4 +1,4 @@
-//Conteneur principal qui va centrer tout le composant
+$font-cursive: 'Dancing Script', cursive;
 .add-recette-container {
   display: flex;
   gap: 48px;
@@ -8,23 +8,23 @@
   margin: 2rem auto;
 }
 
-// Conteneur du formulaire (partie gauche)
 .form-container {
   flex: 1;
 }
 
-// Le formulaire
 .recette-form {
   background: white;
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px #EED7C5;
   width: 100%;
 
   h2 {
     text-align: center;
     margin-bottom: 2rem;
-    color: #333;
+    color: #B36A5E;
+    font-family: $font-cursive;
+    font-size: 2.5rem
   }
 
   mat-form-field {
@@ -60,7 +60,6 @@
   }
 }
 
-//Conteneur de l'aperçu de l'image (partie droite)
 .preview-container {
   flex: 0 0 400px;
   
@@ -69,7 +68,7 @@
 
   h4 {
     margin-top: 0;
-    color: #666;
+    color: #B36A5E;
     margin-bottom: 1rem;
   }
 }
@@ -77,7 +76,7 @@
 .image-preview {
   width: 100%;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #EED7C5;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   object-fit: cover; 
   height: auto;

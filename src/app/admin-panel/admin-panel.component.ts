@@ -29,11 +29,6 @@ export class AdminPanelComponent implements OnInit {
     });
   }
 
-  approve(id: number): void {
-    this.recetteService.updateRecetteStatus(id, 'APPROVED').subscribe(() => {
-      this.pendingRecettes = this.pendingRecettes.filter(r => r.id !== id);
-    });
-  }
 
   edit(id: number): void {
     this.router.navigate(['/admin/edit-recette', id]);

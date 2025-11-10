@@ -1,5 +1,4 @@
 <div class="login-container">
-  <!-- Login Form -->
   <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
     <h2>Se connecter</h2>
     
@@ -25,11 +24,7 @@
     <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">
       Se connecter
     </button>
-  </form>
 
-  <div class="divider"></div>
-
-  <!-- Register Form -->
   <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="login-form">
     <h2>Créer un compte</h2>
     

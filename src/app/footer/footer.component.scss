@@ -11,6 +11,10 @@ $font-cursive: 'Dancing Script', cursive;
   padding: 1rem 2rem;
   background-color: $primary-color;
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); 
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
 
   .footer-button-placeholder {
     width: 120px;
@@ -38,7 +42,6 @@ $font-cursive: 'Dancing Script', cursive;
 
 .home-container {
   padding: 2rem;
-  margin-bottom: 1.5rem;
 }
 
 @media (max-width: 600px) {

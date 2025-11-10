@@ -1,7 +1,6 @@
-// Imports nettoyés et organisés
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormArray, FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,6 +13,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { RecetteService } from '../recette/recette.service';
 import { AuthService } from '../services/auth.service';
 import { environment } from '../../environments/environment';
+import { IngredientService } from 'services/ingredient.service';
 
 export interface Ingredient {
   id_ingredient: number;
@@ -32,6 +32,7 @@ export interface Ustensile {
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -47,15 +48,18 @@ export class AddRecetteComponent implements OnInit {
   recetteForm: FormGroup;
   ingredientsList: Ingredient[] = [];
   ustensilesList: Ustensile[] = [];
-  priceRanges: string[] = ['1-10€', '10-20€', '20-30€', '30-40€', '40-50€', '+50€'];
+  priceRanges: string[] = ['1-10€', '10-20€', '20-30€', '30-40€', '40-50€', '50+€'];
   stars: number[] = [1, 2, 3, 4, 5];
+  showAddIngredientField = false;
+  newIngredientName = '';
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private recetteService: RecetteService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private ingredientService: IngredientService
   ) {
     this.recetteForm = this.fb.group({
       name: ['', Validators.required],
@@ -66,7 +70,7 @@ export class AddRecetteComponent implements OnInit {
       steps: ['', Validators.required],
       price: ['', Validators.required],
       difficulty: [3, Validators.required],
-      dureeRecette: ['', Validators.required] // Champ mis à jour
+      dureeRecette: ['', Validators.required] 
     });
   }
 
@@ -88,10 +92,31 @@ export class AddRecetteComponent implements OnInit {
     });
   }
 
-  fetchUstensiles() {
-  const apiUrl = environment.apiUrl;
+  openAddIngredient() {
+    this.showAddIngredientField = true;
+    this.newIngredientName = '';
+  }
 
-    this.http.get<Ustensile[]>(apiUrl+'/ustensiles').subscribe({
+  createIngredient() {
+    if (!this.newIngredientName) return;
+    const payload: any = { nomIngredient: this.newIngredientName };
+    this.ingredientService.createIngredient(payload).subscribe({
+      next: (created) => {
+        this.ingredientsList.push({ id_ingredient: created.id_ingredient, nom_ingredient: created.nom_ingredient, id_categorie: created.id_categorie });
+        const current = this.recetteForm.get('ingredients')?.value || [];
+        this.recetteForm.get('ingredients')?.setValue([...current, { id_ingredient: created.id_ingredient, nom_ingredient: created.nom_ingredient, id_categorie: created.id_categorie }]);
+        this.showAddIngredientField = false;
+      },
+      error: (err) => {
+        console.error('Erreur création ingrédient', err);
+        alert('Impossible de créer l\'ingrédient.');
+      }
+    });
+  }
+
+  fetchUstensiles() {
+    const apiUrl = environment.apiUrl;
+    this.http.get<Ustensile[]>(apiUrl + '/ustensiles').subscribe({
       next: (data) => { this.ustensilesList = data; },
       error: (err) => console.error('Erreur ustensiles', err)
     });
@@ -103,7 +128,19 @@ export class AddRecetteComponent implements OnInit {
 
   updateQuantitiesForm(selectedIngredients: any[]) {
     this.quantitiesFormArray.clear();
-    const selectedIngredientIds = selectedIngredients.map(i => i.id_ingredient);
+    if (!selectedIngredients || !Array.isArray(selectedIngredients)) {
+      return;
+    }
+
+    const selectedIngredientIds: number[] = selectedIngredients
+      .map(i => {
+        if (i == null) return null;
+        if (typeof i === 'number') return i;
+        if (i.id_ingredient != null) return i.id_ingredient;
+        if (i.id != null) return i.id;
+        return null;
+      })
+      .filter((v): v is number => v != null);
 
     selectedIngredientIds.forEach(id => {
       const ingredient = this.ingredientsList.find(i => i.id_ingredient === id);
@@ -119,6 +156,11 @@ export class AddRecetteComponent implements OnInit {
 
   rate(rating: number) {
     this.recetteForm.get('difficulty')?.setValue(rating);
+  }
+
+  mapRangeToPrice(range: string): number {
+    if (range === '50+€') return 50;
+    return parseInt(range.split('-')[0], 10);
   }
 
   onSubmit() {
@@ -145,7 +187,7 @@ export class AddRecetteComponent implements OnInit {
       ustensilesIds: formValue.ustensiles.map((u: any) => u.idUstensileDto),
       imageRecette: formValue.image,
       contenuRecette: formValue.steps,
-      prixRecette: parseInt(formValue.price.split('-')[0], 10),
+      prixRecette: this.mapRangeToPrice(formValue.price),
       difficulteRecette: formValue.difficulty,
       dureeRecette: formValue.dureeRecette,
       utilisateurId: currentUser.idUserDto
